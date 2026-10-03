@@ -1,0 +1,1080 @@
+<title>Cursada Clara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Lexend:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: cabecera fija con pestañas, una sola columna de lectura (máx. 72rem), herramientas en paneles de dos columnas que se apilan en móvil. */
+:root {
+  --bg: #F2F4F3;
+  --surface: #FFFFFF;
+  --sunken: #E7EBE9;
+  --ink: #1C2623;
+  --muted: #56635F;
+  --line: #D3DAD7;
+  --accent: #1F6F5C;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #DCEDE7;
+  --focus: #E8A33D;
+
+  /* Códigos visuales: siempre color + forma + palabra */
+  --c-entrega: #C2461B;
+  --c-evaluacion: #B0275A;
+  --c-correccion: #6A45C9;
+  --c-teorica: #1F64B0;
+  --c-taller: #2F7D3A;
+  --c-aviso: #9A6A00;
+
+  --f-display: "Lexend", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Verdana", system-ui, sans-serif;
+
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.2rem;
+  --step-2: 1.5rem;
+  --step-3: 2.1rem;
+  --radius: 10px;
+  --lh: 1.6;
+  --ls: 0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151B1A; --surface: #1D2523; --sunken: #121716; --ink: #E6ECEA; --muted: #A2B0AB;
+    --line: #33403C; --accent: #5BC2A6; --accent-ink: #0D1A16; --accent-soft: #1F3A33; --focus: #F2B65A;
+    --c-entrega: #F0875C; --c-evaluacion: #EE7AA6; --c-correccion: #A994F2; --c-teorica: #73AEF0; --c-taller: #7CCB85; --c-aviso: #E3B84E;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #151B1A; --surface: #1D2523; --sunken: #121716; --ink: #E6ECEA; --muted: #A2B0AB;
+  --line: #33403C; --accent: #5BC2A6; --accent-ink: #0D1A16; --accent-soft: #1F3A33; --focus: #F2B65A;
+  --c-entrega: #F0875C; --c-evaluacion: #EE7AA6; --c-correccion: #A994F2; --c-teorica: #73AEF0; --c-taller: #7CCB85; --c-aviso: #E3B84E;
+  color-scheme: dark;
+}
+html.t-lg { font-size: 112.5%; }
+html.t-xl { font-size: 125%; }
+html.spaced { --lh: 1.85; --ls: 0.03em; }
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--f-body); font-size: var(--step-0); line-height: var(--lh); letter-spacing: var(--ls);
+}
+h1, h2, h3, h4 { font-family: var(--f-display); line-height: 1.2; text-wrap: balance; margin: 0; font-weight: 600; letter-spacing: 0; }
+h1 { font-size: var(--step-3); }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); }
+p { margin: 0; max-width: 65ch; }
+a { color: var(--accent); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+.eyebrow { font-family: var(--f-display); font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); font-weight: 600; }
+.muted { color: var(--muted); }
+.small { font-size: var(--step--1); }
+
+/* ---------- Cabecera ---------- */
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.top-inner { max-width: 72rem; margin: 0 auto; padding: 0.75rem 16px 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.brand-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 0.6rem; }
+.brand-mark { width: 32px; height: 32px; flex: none; }
+.brand b { font-family: var(--f-display); font-size: 1.15rem; font-weight: 700; }
+.brand span { color: var(--muted); font-size: var(--step--1); }
+.prefs { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
+.chip-btn {
+  font: inherit; font-size: var(--step--1); color: var(--ink); background: var(--sunken);
+  border: 1px solid var(--line); border-radius: 999px; padding: 0.3rem 0.75rem; cursor: pointer; min-height: 32px;
+}
+.chip-btn[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.tabs { display: flex; gap: 0.25rem; overflow-x: auto; scrollbar-width: none; margin: 0 -16px; padding: 0 16px; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  font: inherit; font-family: var(--f-display); font-weight: 500; font-size: 0.95rem; color: var(--muted);
+  background: none; border: 0; border-bottom: 3px solid transparent; padding: 0.55rem 0.8rem 0.65rem; cursor: pointer; white-space: nowrap;
+}
+.tab small { display: block; font-family: var(--f-body); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 400; }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* ---------- Estructura ---------- */
+main { max-width: 72rem; margin: 0 auto; padding-inline: 16px; padding-block: 2rem 4rem; }
+section[role="tabpanel"] { display: flex; flex-direction: column; gap: 2.25rem; }
+.lead { display: flex; flex-direction: column; gap: 0.6rem; }
+.lead p { font-size: var(--step-1); color: var(--muted); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: 1.25rem; align-items: start; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
+.note { background: var(--accent-soft); border-radius: var(--radius); padding: 0.9rem 1.1rem; font-size: var(--step--1); }
+.example-tag { display: inline-block; align-self: flex-start; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; border: 1px dashed var(--muted); color: var(--muted); border-radius: 4px; padding: 0 0.35rem; vertical-align: middle; }
+
+.btn {
+  font: inherit; font-family: var(--f-display); font-weight: 500; font-size: 0.95rem;
+  background: var(--accent); color: var(--accent-ink); border: 1px solid var(--accent); border-radius: 8px;
+  padding: 0.55rem 1rem; cursor: pointer; min-height: 40px;
+}
+.btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn:disabled { opacity: 0.45; cursor: default; }
+.row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+label.field { display: flex; flex-direction: column; gap: 0.3rem; font-weight: 700; font-size: var(--step--1); }
+input[type="text"], input[type="date"], input[type="time"], select, textarea {
+  font: inherit; font-weight: 400; font-size: var(--step-0); color: var(--ink); background: var(--bg);
+  border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.7rem; width: 100%; min-width: 0;
+}
+textarea { resize: vertical; min-height: 7rem; line-height: 1.5; }
+
+/* ---------- Inicio ---------- */
+.hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: 2rem; align-items: center; }
+.hero h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 700; }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero .lead p { font-size: var(--step-1); }
+
+.carousel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.quote { font-family: var(--f-display); font-size: clamp(1.3rem, 3vw, 1.7rem); font-weight: 500; line-height: 1.3; text-wrap: balance; }
+.quote::before { content: "“"; color: var(--accent); }
+.quote::after { content: "”"; color: var(--accent); }
+.behind { display: flex; flex-direction: column; gap: 0.4rem; border-top: 1px solid var(--line); padding-top: 0.9rem; }
+.behind b { font-family: var(--f-display); font-weight: 600; }
+.car-nav { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.dots { display: flex; gap: 0.4rem; }
+.dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent); background: transparent; padding: 0; cursor: pointer; }
+.dot[aria-current="true"] { background: var(--accent); }
+
+.lines { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+.line-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; cursor: pointer; text-align: left; font: inherit; color: inherit; }
+.line-card:hover { border-color: var(--accent); }
+.line-card .num { font-family: var(--f-display); font-weight: 700; color: var(--accent); font-size: var(--step--1); letter-spacing: 0.08em; }
+.line-card h3 { font-size: var(--step-1); }
+.line-card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: var(--step--1); }
+
+/* ---------- Entender ---------- */
+.myth { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); display: flex; flex-direction: column; }
+.myth button { font: inherit; color: inherit; background: none; border: 0; text-align: left; padding: 1rem 1.1rem; cursor: pointer; display: flex; flex-direction: column; gap: 0.35rem; }
+.myth .tag { font-family: var(--f-display); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
+.myth .tag.m { color: var(--c-entrega); }
+.myth .tag.r { color: var(--accent); }
+.myth .claim { font-family: var(--f-display); font-weight: 500; font-size: 1.05rem; }
+.myth .reveal { padding: 0 1.1rem 1rem; display: flex; flex-direction: column; gap: 0.35rem; border-top: 1px dashed var(--line); padding-top: 0.8rem; }
+.myth .hint { color: var(--muted); font-size: var(--step--1); }
+
+.ef-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 1rem; }
+.ef { display: flex; flex-direction: column; gap: 0.35rem; padding-left: 0.9rem; border-left: 3px solid var(--accent); }
+.ef b { font-family: var(--f-display); font-weight: 600; }
+
+/* ---------- Herramientas ---------- */
+.subtabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.subtab { font: inherit; font-family: var(--f-display); font-size: 0.92rem; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.9rem; cursor: pointer; display: flex; flex-direction: column; text-align: left; gap: 0.1rem; }
+.subtab span { font-family: var(--f-body); font-size: 0.75rem; color: var(--muted); }
+.subtab[aria-selected="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); background: var(--accent-soft); }
+
+/* Primer paso */
+.steps-bar { display: flex; gap: 0.35rem; }
+.steps-bar i { flex: 1; height: 6px; border-radius: 3px; background: var(--sunken); }
+.steps-bar i.on { background: var(--accent); }
+.wizard-q { font-family: var(--f-display); font-size: var(--step-2); font-weight: 600; }
+.first-step { border: 2px solid var(--accent); border-radius: var(--radius); padding: 1.1rem; display: flex; flex-direction: column; gap: 0.5rem; background: var(--accent-soft); }
+.first-step .big { font-family: var(--f-display); font-size: var(--step-2); font-weight: 600; }
+.recap { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; font-size: var(--step--1); }
+.recap dt { font-weight: 700; color: var(--muted); }
+.recap dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+
+/* Dividir entrega */
+.progress { height: 10px; background: var(--sunken); border-radius: 5px; overflow: hidden; }
+.progress > div { height: 100%; background: var(--accent); width: 0; transition: width 0.3s; }
+.stage-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.stage { display: grid; grid-template-columns: auto auto 1fr auto auto; gap: 0.6rem; align-items: center; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 0.5rem 0.6rem; }
+.stage .n { font-family: var(--f-display); font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums; width: 1.6rem; }
+.stage input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--accent); }
+.stage input[type="text"] { background: transparent; border-color: transparent; padding: 0.35rem 0.45rem; }
+.stage input[type="text"]:hover { border-color: var(--line); }
+.stage input[type="date"] { width: auto; padding: 0.3rem 0.4rem; font-size: var(--step--1); background: transparent; }
+.stage.done input[type="text"] { text-decoration: line-through; color: var(--muted); }
+.stage.next { border-color: var(--accent); box-shadow: inset 4px 0 0 var(--accent); }
+.icon-btn { font: inherit; background: none; border: 0; color: var(--muted); cursor: pointer; font-size: 1.1rem; padding: 0.2rem 0.4rem; border-radius: 6px; }
+.icon-btn:hover { color: var(--ink); background: var(--sunken); }
+@media (max-width: 560px) {
+  .stage { grid-template-columns: auto 1fr auto; }
+  .stage .n { display: none; }
+  .stage input[type="date"] { grid-column: 2 / 3; }
+}
+
+/* Códigos visuales */
+.codes { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.code { display: inline-flex; align-items: center; gap: 0.4rem; font-size: var(--step--1); font-weight: 700; padding: 0.2rem 0.6rem 0.2rem 0.45rem; border-radius: 999px; border: 1.5px solid currentColor; }
+.code .shape { width: 12px; height: 12px; background: currentColor; flex: none; }
+.k-entrega { color: var(--c-entrega); } .k-entrega .shape { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.k-evaluacion { color: var(--c-evaluacion); } .k-evaluacion .shape { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.k-correccion { color: var(--c-correccion); } .k-correccion .shape { border-radius: 2px; }
+.k-teorica { color: var(--c-teorica); } .k-teorica .shape { border-radius: 50%; }
+.k-taller { color: var(--c-taller); } .k-taller .shape { clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); }
+.k-aviso { color: var(--c-aviso); } .k-aviso .shape { clip-path: polygon(0 0, 100% 0, 50% 100%); }
+
+/* Semana */
+.week-head { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.5rem; }
+.day { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 0.5rem; min-height: 8rem; display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
+.day.today { border-color: var(--accent); box-shadow: inset 0 3px 0 var(--accent); }
+.day h4 { font-size: var(--step--1); font-weight: 600; display: flex; justify-content: space-between; color: var(--muted); }
+.day.today h4 { color: var(--accent); }
+.ev { font-size: 0.8rem; line-height: 1.3; border-radius: 6px; padding: 0.35rem 0.4rem; background: var(--surface); border-left: 4px solid currentColor; display: flex; flex-direction: column; gap: 0.1rem; position: relative; }
+.ev b { color: var(--ink); font-weight: 700; overflow-wrap: anywhere; }
+.ev .meta { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; }
+.ev .meta .shape { width: 9px; height: 9px; background: currentColor; }
+.ev .del { position: absolute; top: 0.1rem; right: 0.1rem; font-size: 0.85rem; padding: 0 0.25rem; }
+@media (max-width: 760px) {
+  .week { grid-template-columns: 1fr; }
+  .day { min-height: 0; }
+  .day:not(.has) .empty { display: none; }
+}
+.countdown { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.countdown .days { font-family: var(--f-display); font-size: 2.6rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; color: var(--c-entrega); }
+
+/* Timer */
+.timer { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: 1.5rem; align-items: center; }
+.ring-wrap { position: relative; width: min(100%, 15rem); aspect-ratio: 1; margin: 0 auto; max-width: 100%; }
+.ring-wrap svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring-wrap .t { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.2rem; }
+.ring-wrap .t b { font-family: var(--f-display); font-size: 2.6rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.ring-bg { stroke: var(--sunken); }
+.ring-fg { stroke: var(--accent); transition: stroke-dashoffset 0.9s linear; }
+.ring-fg.pause { stroke: var(--c-teorica); }
+.blocks { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.blocks i { width: 18px; height: 18px; border-radius: 4px; background: var(--accent); }
+
+/* ---------- Consignas ---------- */
+.tp-card { background: var(--surface); border: 2px solid var(--ink); border-radius: var(--radius); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.9rem; }
+.tp-card .tp-title { font-family: var(--f-display); font-weight: 700; font-size: var(--step-2); text-transform: uppercase; letter-spacing: 0.02em; }
+.tp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11rem), 1fr)); gap: 0.75rem; }
+.tp-cell { display: flex; flex-direction: column; gap: 0.2rem; border-top: 2px solid var(--line); padding-top: 0.5rem; min-width: 0; overflow-wrap: anywhere; }
+.tp-cell .lbl { font-family: var(--f-display); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.tp-cell.key { border-top-color: var(--accent); }
+.tp-cell.key .lbl { color: var(--accent); }
+.tp-cell.date { border-top-color: var(--c-entrega); }
+.tp-cell.date .lbl { color: var(--c-entrega); }
+.tp-cell ul, .tp-cell ol { margin: 0; padding-left: 1.2rem; }
+.arrow-down { font-family: var(--f-display); font-weight: 600; color: var(--accent); text-align: center; }
+.trans-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 0.75rem; }
+
+.map { display: flex; gap: 0; overflow-x: auto; padding-bottom: 0.5rem; }
+.map-step { flex: 1 0 8.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; text-align: center; position: relative; background: none; border: 0; font: inherit; color: inherit; cursor: pointer; padding: 0.25rem; }
+.map-step::before { content: ""; position: absolute; top: 1.2rem; left: -50%; right: 50%; height: 3px; background: var(--line); z-index: 0; }
+.map-step:first-child::before { display: none; }
+.map-step .node { width: 2.4rem; height: 2.4rem; border-radius: 50%; display: grid; place-items: center; background: var(--surface); border: 3px solid var(--line); font-family: var(--f-display); font-weight: 600; z-index: 1; font-variant-numeric: tabular-nums; }
+.map-step.passed::before, .map-step.current::before { background: var(--accent); }
+.map-step.passed .node { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.map-step.current .node { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.map-step span { font-size: var(--step--1); font-weight: 700; }
+.map-detail { display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* ---------- Docentes ---------- */
+.tips { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+.tips li { display: flex; flex-direction: column; gap: 0.3rem; }
+.tips li b { font-family: var(--f-display); font-weight: 600; }
+.before-after { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+.ba { border-radius: var(--radius); padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.ba.before { background: var(--sunken); }
+.ba.after { background: var(--accent-soft); }
+
+footer { max-width: 72rem; margin: 0 auto; padding-inline: 16px; padding-block: 0 3rem; color: var(--muted); font-size: var(--step--1); }
+
+html.calm *, html.calm *::before, html.calm *::after { transition: none !important; animation: none !important; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand-row">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="2" y="2" width="28" height="28" rx="7" fill="var(--accent)"/>
+          <path d="M9 11h14M9 16h9M9 21h5" stroke="var(--accent-ink)" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <div><b>Cursada Clara</b><br><span>TDAH y universidad</span></div>
+      </div>
+      <div class="prefs" role="group" aria-label="Ajustes de lectura">
+        <button class="chip-btn" id="pref-size" type="button" aria-label="Cambiar tamaño de texto">Texto: normal</button>
+        <button class="chip-btn" id="pref-space" type="button" aria-pressed="false">Espaciado amplio</button>
+        <button class="chip-btn" id="pref-calm" type="button" aria-pressed="false">Sin animaciones</button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Secciones">
+      <button class="tab" role="tab" id="tab-inicio" aria-controls="inicio" aria-selected="true">Inicio<small>Empezar acá</small></button>
+      <button class="tab" role="tab" id="tab-entender" aria-controls="entender" aria-selected="false" tabindex="-1">Entender<small>Informar</small></button>
+      <button class="tab" role="tab" id="tab-consignas" aria-controls="consignas" aria-selected="false" tabindex="-1">Consignas<small>Orientar</small></button>
+      <button class="tab" role="tab" id="tab-herramientas" aria-controls="herramientas" aria-selected="false" tabindex="-1">Herramientas<small>Acompañar</small></button>
+      <button class="tab" role="tab" id="tab-docentes" aria-controls="docentes" aria-selected="false" tabindex="-1">Docentes<small>Comunicar claro</small></button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ================= INICIO ================= -->
+  <section id="inicio" role="tabpanel" aria-labelledby="tab-inicio">
+    <div class="hero">
+      <div class="lead">
+        <span class="eyebrow">TDAH en la universidad</span>
+        <h1>Sabés lo que tenés que hacer. <em>Te ayudamos a empezar.</em></h1>
+        <p>Herramientas cortas y concretas para organizar entregas, entender consignas y sostener el estudio. Pensadas con estudiantes con TDAH y útiles para toda la cursada.</p>
+        <div class="row" style="margin-top:0.5rem">
+          <button class="btn" type="button" data-go="herramientas" data-sub="primer">Necesito empezar algo</button>
+          <button class="btn ghost" type="button" data-go="consignas">Tengo una consigna confusa</button>
+        </div>
+      </div>
+
+      <div class="carousel" aria-roledescription="carrusel" aria-label="Situaciones de la cursada">
+        <span class="eyebrow">¿Te pasa?</span>
+        <p class="quote" id="car-quote" aria-live="polite"></p>
+        <div class="behind">
+          <b id="car-title"></b>
+          <p class="muted" id="car-text"></p>
+          <p><a href="#" id="car-link"></a></p>
+        </div>
+        <div class="car-nav">
+          <button class="btn ghost" type="button" id="car-prev" aria-label="Situación anterior">←</button>
+          <div class="dots" id="car-dots"></div>
+          <button class="btn ghost" type="button" id="car-next" aria-label="Situación siguiente">→</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="lead">
+      <h2>Tres formas de usar este sitio</h2>
+      <p class="small muted">El proyecto se organiza en tres líneas: informar sobre el TDAH, orientar en la información académica y acompañar con herramientas.</p>
+    </div>
+    <div class="lines">
+      <button class="line-card" type="button" data-go="entender">
+        <span class="num">01 · INFORMAR</span>
+        <h3>Entender qué me pasa</h3>
+        <ul><li>Qué es el TDAH, en tres ideas</li><li>Mitos y realidades</li><li>Situaciones típicas de la cursada</li></ul>
+      </button>
+      <button class="line-card" type="button" data-go="consignas">
+        <span class="num">02 · ORIENTAR</span>
+        <h3>Ordenar la información</h3>
+        <ul><li>Traductor de consignas</li><li>Mapa de la cursada</li><li>Códigos visuales para la cursada</li></ul>
+      </button>
+      <button class="line-card" type="button" data-go="herramientas">
+        <span class="num">03 · ACOMPAÑAR</span>
+        <h3>Hacer, paso a paso</h3>
+        <ul><li>Primer paso para arrancar</li><li>Dividir una entrega en etapas</li><li>Calendario semanal y bloques de estudio</li></ul>
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= ENTENDER ================= -->
+  <section id="entender" role="tabpanel" aria-labelledby="tab-entender" hidden>
+    <div class="lead">
+      <span class="eyebrow">01 · Informar</span>
+      <h2>El TDAH en la cursada</h2>
+      <p>El TDAH (trastorno por déficit de atención e hiperactividad) es una condición del neurodesarrollo. En la universidad se nota menos en "no poder quedarse quieto" y más en cómo se organizan el tiempo, la atención y las tareas.</p>
+    </div>
+
+    <div class="panel">
+      <h3>Tres ideas para empezar</h3>
+      <div class="ef-list">
+        <div class="ef"><b>Atención que se regula distinto</b><p class="small">No es que falte atención. Cuesta dirigirla hacia lo que no interesa y a veces se queda "pegada" en lo que sí (hiperfoco).</p></div>
+        <div class="ef"><b>Funciones ejecutivas</b><p class="small">Planificar, empezar una tarea, recordar pasos y calcular cuánto falta. Son las habilidades que más pide la universidad.</p></div>
+        <div class="ef"><b>Percepción del tiempo</b><p class="small">"Dos semanas" puede sentirse como "falta mucho" hasta que de golpe es mañana. Ver el tiempo ayuda más que pensarlo.</p></div>
+      </div>
+    </div>
+
+    <div class="lead">
+      <h2>Mitos y realidades</h2>
+      <p class="small muted">Tocá cada tarjeta para ver la realidad.</p>
+    </div>
+    <div class="grid-3" id="myths"></div>
+
+    <div class="note">Este sitio no diagnostica. Si te sentís identificado o identificada, podés consultar con profesionales de salud mental o con el área de bienestar estudiantil de tu universidad. <span class="example-tag">Completar</span> enlace a los recursos institucionales.</div>
+  </section>
+
+  <!-- ================= CONSIGNAS ================= -->
+  <section id="consignas" role="tabpanel" aria-labelledby="tab-consignas" hidden>
+    <div class="lead">
+      <span class="eyebrow">02 · Orientar</span>
+      <h2>Traductor de consignas</h2>
+      <p>Pegá una consigna larga o confusa. La desarmamos en partes que se pueden hacer. Revisá y corregí cada campo: la herramienta sugiere, vos decidís.</p>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <label class="field" for="tr-input">Consigna original <span class="example-tag">Ejemplo</span>
+          <textarea id="tr-input">Realizar una pieza gráfica que comunique el concepto de "identidad barrial", teniendo en cuenta el público adolescente, el uso de tipografía expresiva y una paleta de no más de tres colores. Se entrega en PDF y archivo editable el 20/10. Se evaluará el concepto, la resolución gráfica y la fundamentación.</textarea>
+        </label>
+        <div class="row"><button class="btn" type="button" id="tr-run">Desarmar consigna</button><span class="small muted" id="tr-msg"></span></div>
+        <div class="trans-fields">
+          <label class="field" for="tr-que">Qué hacer<input type="text" id="tr-que"></label>
+          <label class="field" for="tr-comunicar">Qué comunicar<input type="text" id="tr-comunicar"></label>
+          <label class="field" for="tr-cuenta">Qué tener en cuenta<input type="text" id="tr-cuenta"></label>
+          <label class="field" for="tr-entregar">Qué entregar<input type="text" id="tr-entregar"></label>
+          <label class="field" for="tr-fecha">Fecha<input type="text" id="tr-fecha"></label>
+          <label class="field" for="tr-paso">Primer paso<input type="text" id="tr-paso"></label>
+        </div>
+      </div>
+      <div class="panel" style="background:transparent;border:0;padding:0">
+        <p class="arrow-down" aria-hidden="true">CONSIGNA DESARMADA</p>
+        <div class="tp-card" id="tr-card" aria-live="polite"></div>
+        <div class="row">
+          <button class="btn ghost" type="button" id="tr-copy">Copiar como texto</button>
+          <button class="btn ghost" type="button" id="tr-toplan">Pasar a "Dividir la entrega"</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="lead">
+      <h2>Mapa de la cursada</h2>
+      <p class="small muted">Una materia no es solo "clase, TP, entrega". Marcá en qué punto estás para ver qué sigue.</p>
+    </div>
+    <div class="panel">
+      <div class="map" id="map" role="list"></div>
+      <div class="map-detail" id="map-detail" aria-live="polite"></div>
+    </div>
+
+    <div class="lead">
+      <h2>Códigos visuales de la cursada</h2>
+      <p class="small muted">Cada tipo de información tiene siempre la misma forma, color y palabra. Así se reconoce de un vistazo, en el calendario, en el aula virtual o en un cartel. La forma permite distinguirlos aunque no se perciban bien los colores.</p>
+    </div>
+    <div class="codes" id="codes-legend"></div>
+  </section>
+
+  <!-- ================= HERRAMIENTAS ================= -->
+  <section id="herramientas" role="tabpanel" aria-labelledby="tab-herramientas" hidden>
+    <div class="lead">
+      <span class="eyebrow">03 · Acompañar</span>
+      <h2>Herramientas</h2>
+      <p>Elegí una sola. Todo lo que escribas queda guardado en este navegador.</p>
+    </div>
+    <div class="subtabs" role="tablist" aria-label="Herramientas">
+      <button class="subtab" role="tab" id="st-primer" aria-controls="tool-primer" aria-selected="true">Primer paso<span>No sé por dónde empezar</span></button>
+      <button class="subtab" role="tab" id="st-dividir" aria-controls="tool-dividir" aria-selected="false" tabindex="-1">Dividir la entrega<span>El TP es enorme</span></button>
+      <button class="subtab" role="tab" id="st-semana" aria-controls="tool-semana" aria-selected="false" tabindex="-1">Mi semana<span>Entregas y clases</span></button>
+      <button class="subtab" role="tab" id="st-bloques" aria-controls="tool-bloques" aria-selected="false" tabindex="-1">Bloques de estudio<span>Me disperso</span></button>
+    </div>
+
+    <!-- Primer paso -->
+    <div class="grid-2" id="tool-primer" role="tabpanel" aria-labelledby="st-primer">
+      <div class="panel">
+        <div class="steps-bar" id="wz-bar" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <p class="small muted" id="wz-count"></p>
+        <label class="wizard-q" for="wz-input" id="wz-q"></label>
+        <p class="small muted" id="wz-help"></p>
+        <input type="text" id="wz-input">
+        <div class="row">
+          <button class="btn ghost" type="button" id="wz-back">Atrás</button>
+          <button class="btn" type="button" id="wz-next">Siguiente</button>
+        </div>
+      </div>
+      <div class="first-step">
+        <span class="eyebrow">Tu primer paso</span>
+        <p class="big" id="wz-result"></p>
+        <p class="small">Hacelo ahora, en un bloque corto. No hace falta terminar todo: alcanza con arrancar.</p>
+        <dl class="recap" id="wz-recap"></dl>
+        <div class="row"><button class="btn" type="button" data-go="herramientas" data-sub="bloques">Empezar un bloque de 10 min</button></div>
+      </div>
+    </div>
+
+    <!-- Dividir la entrega -->
+    <div class="panel" id="tool-dividir" role="tabpanel" aria-labelledby="st-dividir" hidden>
+      <div class="grid-2">
+        <label class="field" for="dv-title">¿Qué tenés que hacer?<input type="text" id="dv-title"></label>
+        <label class="field" for="dv-due">Fecha de entrega<input type="date" id="dv-due"></label>
+      </div>
+      <div class="row" style="justify-content:space-between">
+        <p class="small" id="dv-status"></p>
+        <p class="small muted" id="dv-days"></p>
+      </div>
+      <div class="progress" aria-hidden="true"><div id="dv-bar"></div></div>
+      <ol class="stage-list" id="dv-list"></ol>
+      <div class="row">
+        <button class="btn ghost" type="button" id="dv-add">+ Agregar etapa</button>
+        <button class="btn ghost" type="button" id="dv-spread">Repartir fechas hasta la entrega</button>
+        <button class="btn ghost" type="button" id="dv-reset">Volver a las 8 etapas base</button>
+      </div>
+      <p class="small muted">La etapa resaltada es la siguiente. Las 8 etapas base siguen el proceso de un proyecto de diseño; podés renombrarlas.</p>
+    </div>
+
+    <!-- Mi semana -->
+    <div id="tool-semana" role="tabpanel" aria-labelledby="st-semana" hidden style="display:flex;flex-direction:column;gap:1.25rem">
+      <div class="grid-2">
+        <div class="panel">
+          <span class="eyebrow">Próxima fecha importante</span>
+          <div class="countdown" id="wk-next"></div>
+        </div>
+        <form class="panel" id="wk-form">
+          <span class="eyebrow">Agregar</span>
+          <label class="field" for="wk-title">Qué<input type="text" id="wk-title" placeholder="Ej.: Entrega TP 03 Tipografía" required></label>
+          <div class="row" style="align-items:end">
+            <label class="field" for="wk-type" style="flex:1 1 9rem">Tipo<select id="wk-type"></select></label>
+            <label class="field" for="wk-date" style="flex:1 1 9rem">Día<input type="date" id="wk-date" required></label>
+            <label class="field" for="wk-time" style="flex:1 1 6rem">Hora<input type="time" id="wk-time"></label>
+          </div>
+          <div class="row"><button class="btn" type="submit">Agregar a mi semana</button></div>
+        </form>
+      </div>
+      <div class="panel">
+        <div class="week-head">
+          <h3 id="wk-label"></h3>
+          <div class="row">
+            <button class="btn ghost" type="button" id="wk-prev" aria-label="Semana anterior">←</button>
+            <button class="btn ghost" type="button" id="wk-today">Hoy</button>
+            <button class="btn ghost" type="button" id="wk-nextw" aria-label="Semana siguiente">→</button>
+          </div>
+        </div>
+        <div class="codes" id="wk-legend"></div>
+        <div class="week" id="wk-grid"></div>
+        <p class="small muted" id="wk-sample-note"></p>
+      </div>
+    </div>
+
+    <!-- Bloques de estudio -->
+    <div class="panel" id="tool-bloques" role="tabpanel" aria-labelledby="st-bloques" hidden>
+      <div class="timer">
+        <div class="ring-wrap">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="ring-bg" cx="60" cy="60" r="52" fill="none" stroke-width="10"/>
+            <circle class="ring-fg" id="tm-ring" cx="60" cy="60" r="52" fill="none" stroke-width="10" stroke-linecap="round"/>
+          </svg>
+          <div class="t"><b id="tm-time">10:00</b><span class="small muted" id="tm-phase">Bloque de foco</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:1rem;min-width:0">
+          <label class="field" for="tm-task">¿Qué vas a hacer en este bloque? (una sola cosa)<input type="text" id="tm-task" placeholder="Ej.: buscar 5 referencias de afiches"></label>
+          <div>
+            <p class="small" style="font-weight:700;margin-bottom:0.35rem">Duración del bloque</p>
+            <div class="row" id="tm-presets" role="group" aria-label="Duración del bloque"></div>
+          </div>
+          <div class="row">
+            <button class="btn" type="button" id="tm-start">Empezar</button>
+            <button class="btn ghost" type="button" id="tm-reset">Reiniciar</button>
+          </div>
+          <div>
+            <p class="small muted" id="tm-done-label"></p>
+            <div class="blocks" id="tm-blocks"></div>
+          </div>
+          <p class="small muted">Bloques cortos con pausas de 5 minutos. Si el bloque te queda largo, achicalo: es mejor terminar 10 minutos que abandonar 25.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DOCENTES ================= -->
+  <section id="docentes" role="tabpanel" aria-labelledby="tab-docentes" hidden>
+    <div class="lead">
+      <span class="eyebrow">Para docentes</span>
+      <h2>Consignas que se entienden a la primera</h2>
+      <p>No se trata de diagnosticar ni de bajar la exigencia. Una consigna con estructura clara ayuda a todo el curso y reduce barreras que afectan especialmente a estudiantes con TDAH.</p>
+    </div>
+
+    <div class="before-after">
+      <div class="ba before">
+        <span class="eyebrow" style="color:var(--muted)">Antes</span>
+        <p class="small">"Para la próxima traigan una propuesta editorial pensando en lo que vimos, con las referencias y todo lo que hablamos en clase, en el formato de siempre."</p>
+      </div>
+      <div class="ba after">
+        <span class="eyebrow">Después</span>
+        <p class="small"><b>Qué:</b> una propuesta editorial (portada + 2 páginas).<br><b>Cuándo:</b> martes 14/10, al inicio de la clase.<br><b>Con qué:</b> 3 referencias impresas y bocetos a mano.<br><b>Formato:</b> A4, PDF por el aula virtual.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <h3>Plantilla de consigna clara</h3>
+        <label class="field" for="dc-name">Nombre del trabajo<input type="text" id="dc-name" value="Trabajo práctico 03"></label>
+        <label class="field" for="dc-que">¿Qué? Qué hay que realizar<input type="text" id="dc-que" value="Desarrollar una pieza editorial"></label>
+        <label class="field" for="dc-para">¿Para qué? Cuál es el objetivo<input type="text" id="dc-para" value="Aplicar jerarquía tipográfica en un sistema de páginas"></label>
+        <label class="field" for="dc-como">¿Cómo? Etapas, una por línea<textarea id="dc-como">Investigación
+Conceptualización
+Bocetos
+Desarrollo
+Corrección
+Entrega</textarea></label>
+        <label class="field" for="dc-con">¿Con qué? Materiales o recursos<input type="text" id="dc-con" value="InDesign, referencias del apunte 2"></label>
+        <div class="row">
+          <label class="field" for="dc-cuando" style="flex:1 1 8rem">¿Cuándo?<input type="text" id="dc-cuando" value="15/10"></label>
+          <label class="field" for="dc-formato" style="flex:1 1 8rem">Formato<input type="text" id="dc-formato" value="PDF"></label>
+        </div>
+        <label class="field" for="dc-eval">¿Qué se evalúa? Separado por comas<input type="text" id="dc-eval" value="Concepto, Resolución gráfica, Fundamentación"></label>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;min-width:0">
+        <div class="tp-card" id="dc-card" aria-live="polite"></div>
+        <div class="row"><button class="btn ghost" type="button" id="dc-copy">Copiar como texto</button><span class="small muted" id="dc-msg"></span></div>
+      </div>
+    </div>
+
+    <div class="lead"><h2>Seis recomendaciones</h2></div>
+    <ul class="tips">
+      <li><b>Por escrito, además de oral</b><p class="small muted">Lo dicho en clase se pierde fácil. La consigna escrita es el punto de referencia.</p></li>
+      <li><b>Fecha y formato arriba</b><p class="small muted">Lo que más se busca va primero, siempre en el mismo lugar.</p></li>
+      <li><b>Etapas con fechas intermedias</b><p class="small muted">Una entrega grande con avances parciales es más fácil de empezar.</p></li>
+      <li><b>Criterios de evaluación visibles</b><p class="small muted">Saber qué se mira ayuda a decidir dónde poner la energía.</p></li>
+      <li><b>Una idea por oración</b><p class="small muted">Evitar consignas con varias tareas encadenadas en un solo párrafo.</p></li>
+      <li><b>Un único canal para cambios</b><p class="small muted">Cambios de aula o fecha siempre por el mismo medio y con el mismo código visual.</p></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>Cursada Clara es un prototipo de un proyecto de Diseño Gráfico sobre TDAH en la universidad. Los datos que cargues quedan solo en tu navegador.</p>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("cc." + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem("cc." + k, JSON.stringify(v)); } catch (e) {} }
+  };
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const pad = (n) => String(n).padStart(2, "0");
+  const iso = (d) => d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  const fromIso = (s) => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+  const today = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
+  const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+  const daysBetween = (a, b) => Math.round((b - a) / 86400000);
+  const DAYS = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
+  const MONTHS = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+  async function copyText(text, msgEl) {
+    try { await navigator.clipboard.writeText(text); if (msgEl) msgEl.textContent = "Copiado."; }
+    catch (e) { if (msgEl) msgEl.textContent = "No se pudo copiar automáticamente. Seleccioná el texto de la tarjeta."; }
+    if (msgEl) setTimeout(() => { msgEl.textContent = ""; }, 3000);
+  }
+
+  /* ---------- Ajustes de lectura ---------- */
+  const root = document.documentElement;
+  const sizes = [["", "normal"], ["t-lg", "grande"], ["t-xl", "muy grande"]];
+  let prefs = store.get("prefs", { size: 0, spaced: false, calm: false });
+  function applyPrefs() {
+    root.classList.remove("t-lg", "t-xl");
+    if (sizes[prefs.size][0]) root.classList.add(sizes[prefs.size][0]);
+    root.classList.toggle("spaced", prefs.spaced);
+    root.classList.toggle("calm", prefs.calm);
+    $("#pref-size").textContent = "Texto: " + sizes[prefs.size][1];
+    $("#pref-space").setAttribute("aria-pressed", prefs.spaced);
+    $("#pref-calm").setAttribute("aria-pressed", prefs.calm);
+    store.set("prefs", prefs);
+  }
+  $("#pref-size").onclick = () => { prefs.size = (prefs.size + 1) % sizes.length; applyPrefs(); };
+  $("#pref-space").onclick = () => { prefs.spaced = !prefs.spaced; applyPrefs(); };
+  $("#pref-calm").onclick = () => { prefs.calm = !prefs.calm; applyPrefs(); };
+  applyPrefs();
+
+  /* ---------- Pestañas ---------- */
+  function setupTabs(tabs, onSelect) {
+    tabs.forEach((t, i) => {
+      t.addEventListener("click", () => onSelect(t));
+      t.addEventListener("keydown", (e) => {
+        let j = null;
+        if (e.key === "ArrowRight") j = (i + 1) % tabs.length;
+        if (e.key === "ArrowLeft") j = (i - 1 + tabs.length) % tabs.length;
+        if (e.key === "Home") j = 0;
+        if (e.key === "End") j = tabs.length - 1;
+        if (j !== null) { e.preventDefault(); tabs[j].focus(); onSelect(tabs[j]); }
+      });
+    });
+  }
+  function selectIn(tabs, tab) {
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute("aria-selected", on);
+      t.tabIndex = on ? 0 : -1;
+      const p = document.getElementById(t.getAttribute("aria-controls"));
+      if (p) p.hidden = !on;
+    });
+  }
+  const mainTabs = $$(".tabs .tab");
+  function goTab(id, scroll) {
+    const t = mainTabs.find((x) => x.getAttribute("aria-controls") === id);
+    if (!t) return;
+    selectIn(mainTabs, t);
+    store.set("tab", id);
+    if (scroll) window.scrollTo({ top: 0, behavior: prefs.calm ? "auto" : "smooth" });
+  }
+  setupTabs(mainTabs, (t) => goTab(t.getAttribute("aria-controls")));
+
+  const subTabs = $$(".subtabs .subtab");
+  function goSub(key) {
+    const t = subTabs.find((x) => x.id === "st-" + key);
+    if (!t) return;
+    selectIn(subTabs, t);
+    $("#tool-semana").style.display = key === "semana" ? "flex" : "none";
+    store.set("sub", key);
+  }
+  setupTabs(subTabs, (t) => goSub(t.id.replace("st-", "")));
+
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-go]");
+    if (!b) return;
+    e.preventDefault();
+    goTab(b.dataset.go, true);
+    if (b.dataset.sub) goSub(b.dataset.sub);
+    if (b.dataset.sub === "bloques") setPreset(10);
+  });
+
+  /* ---------- Carrusel de situaciones ---------- */
+  const situations = [
+    { q: "No es que no escuché. Perdí el hilo.", t: "Atención sostenida", x: "En una clase larga la atención va y viene sin que lo decidas. Tener la consigna por escrito y una estructura fija para tomar apuntes ayuda a retomar.", l: ["Ver cómo desarmar una consigna", "consignas"] },
+    { q: "Sé que tengo que hacerlo. No sé por dónde empezar.", t: "Iniciar tareas", x: "No es falta de interés. Empezar una tarea es una función ejecutiva, y cuesta más cuando la tarea es grande y difusa. Achicar el primer paso destraba.", l: ["Usar Primer paso", "herramientas", "primer"] },
+    { q: "La entrega es en dos semanas y todavía no puedo empezar.", t: "Percepción del tiempo", x: "El tiempo lejano se siente abstracto. Ver los días que faltan y tener fechas intermedias lo vuelve concreto.", l: ["Armar mi semana", "herramientas", "semana"] },
+    { q: "Entendí la consigna, pero no sé cómo organizarla.", t: "Planificación", x: "Entender qué hay que hacer y saber en qué orden hacerlo son dos cosas distintas. Partir el TP en etapas convierte una tarea en una lista.", l: ["Dividir la entrega", "herramientas", "dividir"] },
+    { q: "Me siento a estudiar y a los diez minutos estoy en otra cosa.", t: "Regulación de la atención", x: "Bloques cortos con un objetivo único y pausas planificadas funcionan mejor que sesiones largas a pura fuerza de voluntad.", l: ["Probar bloques de estudio", "herramientas", "bloques"] }
+  ];
+  let car = 0;
+  const dotsEl = $("#car-dots");
+  situations.forEach((s, i) => {
+    const d = document.createElement("button");
+    d.className = "dot"; d.type = "button"; d.setAttribute("aria-label", "Situación " + (i + 1));
+    d.onclick = () => { car = i; renderCar(); };
+    dotsEl.appendChild(d);
+  });
+  function renderCar() {
+    const s = situations[car];
+    $("#car-quote").textContent = s.q;
+    $("#car-title").textContent = "Qué puede haber detrás: " + s.t.toLowerCase();
+    $("#car-text").textContent = s.x;
+    const a = $("#car-link");
+    a.textContent = s.l[0] + " →";
+    a.dataset.go = s.l[1];
+    if (s.l[2]) a.dataset.sub = s.l[2]; else delete a.dataset.sub;
+    $$(".dot", dotsEl).forEach((d, i) => d.setAttribute("aria-current", i === car));
+  }
+  $("#car-prev").onclick = () => { car = (car - 1 + situations.length) % situations.length; renderCar(); };
+  $("#car-next").onclick = () => { car = (car + 1) % situations.length; renderCar(); };
+  renderCar();
+
+  /* ---------- Mitos ---------- */
+  const myths = [
+    ["Es falta de voluntad o de interés.", "Es una condición del neurodesarrollo. Afecta funciones como planificar, iniciar tareas y sostener la atención, aunque haya muchas ganas."],
+    ["Solo les pasa a chicos y chicas.", "En muchas personas continúa en la adultez. En la universidad aumenta la autonomía que se pide y por eso a veces se nota más."],
+    ["Si se concentra en lo que le gusta, no tiene TDAH.", "La atención se regula según el interés. El hiperfoco existe y convive con la dificultad para concentrarse en lo que no engancha."],
+    ["Es estar moviéndose todo el tiempo.", "Hay presentaciones donde predomina la inatención, más silenciosas y fáciles de pasar por alto."],
+    ["Hay que bajar la exigencia.", "Lo que ayuda es información clara, estructura y fechas visibles. La exigencia puede ser la misma."],
+    ["Es algo que se supera con organización.", "Las herramientas ayudan mucho, pero no cambian la condición. Son apoyos, como los anteojos para la vista."]
+  ];
+  $("#myths").innerHTML = myths.map((m, i) => `
+    <div class="myth">
+      <button type="button" aria-expanded="false" aria-controls="myth-${i}">
+        <span class="tag m">Mito</span><span class="claim">${esc(m[0])}</span><span class="hint">Ver la realidad</span>
+      </button>
+      <div class="reveal" id="myth-${i}" hidden><span class="tag r">Realidad</span><p class="small">${esc(m[1])}</p></div>
+    </div>`).join("");
+  $$("#myths .myth button").forEach((b) => b.onclick = () => {
+    const open = b.getAttribute("aria-expanded") !== "true";
+    b.setAttribute("aria-expanded", open);
+    document.getElementById(b.getAttribute("aria-controls")).hidden = !open;
+    $(".hint", b).textContent = open ? "Ocultar" : "Ver la realidad";
+  });
+
+  /* ---------- Códigos visuales ---------- */
+  const TYPES = {
+    entrega: "Entrega", evaluacion: "Evaluación", correccion: "Corrección",
+    teorica: "Clase teórica", taller: "Taller", aviso: "Aviso o cambio de aula"
+  };
+  const codeHtml = (k) => `<span class="code k-${k}"><span class="shape" aria-hidden="true"></span>${TYPES[k]}</span>`;
+  const legend = Object.keys(TYPES).map(codeHtml).join("");
+  $("#codes-legend").innerHTML = legend;
+  $("#wk-legend").innerHTML = legend;
+  $("#wk-type").innerHTML = Object.entries(TYPES).map(([k, v]) => `<option value="${k}">${v}</option>`).join("");
+
+  /* ---------- Traductor de consignas ---------- */
+  const trIds = ["que", "comunicar", "cuenta", "entregar", "fecha", "paso"];
+  const trLabels = { que: "Qué hacer", comunicar: "Qué comunicar", cuenta: "Qué tener en cuenta", entregar: "Qué entregar", fecha: "Fecha", paso: "Primer paso" };
+  function translate(text) {
+    const t = text.replace(/\s+/g, " ").trim();
+    const out = {};
+    const first = (t.split(/(?<=\.)\s/)[0] || t);
+    const q = first.match(/^(.+?)(?:\s+que\s+|,|\.|\s+teniendo)/i);
+    out.que = q ? q[1].trim() : first.slice(0, 80);
+    const c = t.match(/comuni(?:que|car|quen)\s+(.+?)(?:,|\.|\s+teniendo|\s+para\s)/i);
+    out.comunicar = c ? c[1].replace(/^(el|la|los|las)\s+/i, "").trim() : "";
+    const k = t.match(/(?:teniendo en cuenta|considerando|tener en cuenta)\s+(.+?)\./i);
+    out.cuenta = k ? k[1].split(/,\s*|\s+y\s+/).map((s) => s.trim()).filter(Boolean).join(" · ") : "";
+    const fm = t.match(/\b(PDF|JPG|PNG|editable|impres[oa]|maqueta|archivo abierto|AI|PSD|InDesign)\b/gi);
+    out.entregar = fm ? Array.from(new Set(fm.map((s) => /^(pdf|jpg|png|ai|psd)$/i.test(s) ? s.toUpperCase() : (s.toLowerCase() === "editable" ? "archivo editable" : s.toLowerCase())))).join(" + ") : "";
+    const d = t.match(/\b(\d{1,2})[\/\-](\d{1,2})(?:[\/\-](\d{2,4}))?\b/);
+    out.fecha = d ? pad(d[1]) + "/" + pad(d[2]) : "";
+    out.paso = out.comunicar ? "Definir el concepto en una frase" : "Releer la consigna y marcar lo que no entiendo";
+    const ev = t.match(/(?:se evalua(?:rá)?|se evaluará|se evalúa|criterios?:?)\s+(.+?)(?:\.|$)/i);
+    out.evalua = ev ? ev[1].replace(/^(el|la|los|las)\s+/i, "").split(/,\s*|\s+y\s+/).map((s) => s.replace(/^(el|la|los|las)\s+/i, "").trim()).filter(Boolean) : [];
+    return out;
+  }
+  let trEval = [];
+  function renderTr() {
+    const v = {}; trIds.forEach((id) => v[id] = $("#tr-" + id).value.trim());
+    const cell = (id, cls) => `<div class="tp-cell ${cls || ""}"><span class="lbl">${trLabels[id]}</span><span>${esc(v[id] || "—")}</span></div>`;
+    $("#tr-card").innerHTML = `
+      <span class="tp-title">${esc(v.que || "Consigna")}</span>
+      <div class="tp-grid">${cell("comunicar")}${cell("cuenta")}${cell("entregar")}${cell("fecha", "date")}</div>
+      ${trEval.length ? `<div class="tp-cell"><span class="lbl">Se evalúa</span><ul>${trEval.map((e) => `<li>${esc(e)}</li>`).join("")}</ul></div>` : ""}
+      ${cell("paso", "key")}`;
+    store.set("tr", { input: $("#tr-input").value, v, ev: trEval });
+  }
+  function runTr() {
+    const r = translate($("#tr-input").value);
+    trIds.forEach((id) => $("#tr-" + id).value = r[id] || "");
+    trEval = r.evalua;
+    const missing = trIds.filter((id) => !r[id]).map((id) => trLabels[id].toLowerCase());
+    $("#tr-msg").textContent = missing.length ? "Completá a mano: " + missing.join(", ") + "." : "Revisá que cada campo esté bien.";
+    renderTr();
+  }
+  $("#tr-run").onclick = runTr;
+  trIds.forEach((id) => $("#tr-" + id).addEventListener("input", renderTr));
+  const trSaved = store.get("tr", null);
+  if (trSaved) { $("#tr-input").value = trSaved.input; trIds.forEach((id) => $("#tr-" + id).value = trSaved.v[id] || ""); trEval = trSaved.ev || []; renderTr(); }
+  else runTr();
+  $("#tr-input").addEventListener("input", () => store.set("tr", Object.assign(store.get("tr", {}), { input: $("#tr-input").value })));
+  $("#tr-copy").onclick = () => {
+    const lines = trIds.map((id) => trLabels[id].toUpperCase() + ": " + ($("#tr-" + id).value || "—"));
+    if (trEval.length) lines.push("SE EVALÚA: " + trEval.join(", "));
+    copyText(lines.join("\n"), $("#tr-msg"));
+  };
+  $("#tr-toplan").onclick = () => {
+    dv.title = $("#tr-que").value || dv.title;
+    const f = $("#tr-fecha").value.match(/(\d{1,2})\/(\d{1,2})/);
+    if (f) {
+      let d = new Date(today().getFullYear(), Number(f[2]) - 1, Number(f[1]));
+      if (d < today()) d = new Date(d.getFullYear() + 1, d.getMonth(), d.getDate());
+      dv.due = iso(d);
+    }
+    if ($("#tr-paso").value) dv.stages[0].text = $("#tr-paso").value;
+    saveDv(); renderDv();
+    goTab("herramientas", true); goSub("dividir");
+  };
+
+  /* ---------- Mapa de la cursada ---------- */
+  const mapSteps = [
+    ["Inicio", "Leer la consigna completa una vez, sin hacer nada más.", "Abrí el traductor de consignas."],
+    ["¿Qué tengo que hacer?", "Decirlo en una frase con tus palabras. Si no podés, preguntá antes de seguir.", "Una pregunta a tiempo ahorra un TP rehecho."],
+    ["¿Qué necesito?", "Materiales, programas, referencias, apuntes. Hacé la lista ahora, no el día antes.", "Si falta algo, conseguilo primero."],
+    ["¿Cómo lo organizo?", "Partir en etapas y ponerle una fecha a cada una.", "Usá Dividir la entrega."],
+    ["Primer avance", "Algo imperfecto pero real: un boceto, una lista, un esquema.", "El objetivo es tener algo que mostrar, no que esté bien."],
+    ["Corrección", "Llevar el avance a clase y anotar lo que te dicen en el momento.", "Pedí que te repitan si perdiste el hilo. Es válido."],
+    ["Revisión", "Aplicar las correcciones de a una y tacharlas.", "Convertí cada corrección en un ítem de la lista."],
+    ["Entrega", "Revisar formato, nombre de archivo y fecha. Entregar.", "Después, descansá. También es parte del proceso."]
+  ];
+  let mapCur = store.get("map", 3);
+  function renderMap() {
+    $("#map").innerHTML = mapSteps.map((s, i) => `
+      <button class="map-step ${i < mapCur ? "passed" : ""} ${i === mapCur ? "current" : ""}" type="button" role="listitem" data-i="${i}" aria-current="${i === mapCur ? "step" : "false"}">
+        <span class="node">${i < mapCur ? "✓" : i + 1}</span><span>${esc(s[0])}</span>
+      </button>`).join("");
+    const s = mapSteps[mapCur];
+    $("#map-detail").innerHTML = `<span class="eyebrow">Estás en: ${esc(s[0])}</span><p>${esc(s[1])}</p><p class="small muted">${esc(s[2])}</p>`;
+    $$("#map .map-step").forEach((b) => b.onclick = () => { mapCur = Number(b.dataset.i); store.set("map", mapCur); renderMap(); });
+  }
+  renderMap();
+
+  /* ---------- Primer paso ---------- */
+  const wzQs = [
+    ["¿Qué tengo que hacer?", "Escribilo como te salga. Ejemplo: el TP de editorial.", "Pieza editorial para Diseño 2"],
+    ["¿Por dónde empiezo?", "Elegí la parte más chica o la que menos te cuesta.", "Releer la consigna"],
+    ["¿Qué necesito?", "Lo que tiene que estar a mano para arrancar.", "Consigna impresa y un lápiz"],
+    ["¿Cuál es el primer paso?", "Algo que puedas hacer en menos de 10 minutos. Empezá con un verbo.", "Subrayar en la consigna qué hay que entregar"]
+  ];
+  let wz = store.get("wz", { i: 3, a: wzQs.map((q) => q[2]), sample: true });
+  function renderWz() {
+    $$("#wz-bar i").forEach((el, j) => el.classList.toggle("on", j <= wz.i));
+    $("#wz-count").textContent = "Pregunta " + (wz.i + 1) + " de 4";
+    $("#wz-q").textContent = wzQs[wz.i][0];
+    $("#wz-help").textContent = wzQs[wz.i][1];
+    $("#wz-input").value = wz.a[wz.i] || "";
+    $("#wz-back").disabled = wz.i === 0;
+    $("#wz-next").textContent = wz.i === 3 ? "Listo" : "Siguiente";
+    $("#wz-result").textContent = wz.a[3] || "Respondé las cuatro preguntas";
+    $("#wz-recap").innerHTML = wzQs.slice(0, 3).map((q, j) => `<dt>${esc(q[0].replace(/[¿?]/g, ""))}</dt><dd>${esc(wz.a[j] || "—")}</dd>`).join("")
+      + (wz.sample ? `<dt></dt><dd><span class="example-tag">Ejemplo</span> Reemplazalo con lo tuyo.</dd>` : "");
+    store.set("wz", wz);
+  }
+  $("#wz-input").addEventListener("input", (e) => { wz.a[wz.i] = e.target.value; wz.sample = false; renderWz(); });
+  $("#wz-next").onclick = () => { if (wz.i < 3) { wz.i++; renderWz(); $("#wz-input").focus(); } else { $("#wz-result").focus?.(); } };
+  $("#wz-back").onclick = () => { if (wz.i > 0) { wz.i--; renderWz(); $("#wz-input").focus(); } };
+  $("#wz-input").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); $("#wz-next").click(); } });
+  renderWz();
+
+  /* ---------- Dividir la entrega ---------- */
+  const BASE = ["Entender la consigna", "Buscar información", "Seleccionar referencias", "Definir concepto", "Hacer bocetos", "Diseñar", "Revisar", "Entregar"];
+  const mkStages = () => BASE.map((t) => ({ text: t, done: false, date: "" }));
+  let dv = store.get("dv", null);
+  if (!dv) {
+    dv = { title: "TP 03 · Pieza editorial", due: iso(addDays(today(), 12)), stages: mkStages() };
+    dv.stages[0].done = true; dv.stages[1].done = true;
+  }
+  const saveDv = () => store.set("dv", dv);
+  function renderDv() {
+    $("#dv-title").value = dv.title;
+    $("#dv-due").value = dv.due;
+    const done = dv.stages.filter((s) => s.done).length;
+    const nextI = dv.stages.findIndex((s) => !s.done);
+    $("#dv-bar").style.width = (dv.stages.length ? (done / dv.stages.length) * 100 : 0) + "%";
+    $("#dv-status").innerHTML = `<b>${done} de ${dv.stages.length} etapas</b>` + (nextI >= 0 ? ` · Sigue: ${esc(dv.stages[nextI].text)}` : " · ¡Todo listo!");
+    if (dv.due) {
+      const n = daysBetween(today(), fromIso(dv.due));
+      $("#dv-days").textContent = n > 1 ? `Faltan ${n} días` : n === 1 ? "Es mañana" : n === 0 ? "Es hoy" : `Venció hace ${-n} días`;
+    } else $("#dv-days").textContent = "";
+    $("#dv-list").innerHTML = dv.stages.map((s, i) => `
+      <li class="stage ${s.done ? "done" : ""} ${i === nextI ? "next" : ""}">
+        <span class="n">${pad(i + 1)}</span>
+        <input type="checkbox" id="dv-c-${i}" data-i="${i}" ${s.done ? "checked" : ""} aria-label="Marcar ${esc(s.text)} como hecha">
+        <input type="text" id="dv-t-${i}" data-i="${i}" value="${esc(s.text)}" aria-label="Nombre de la etapa ${i + 1}">
+        <input type="date" id="dv-d-${i}" data-i="${i}" value="${esc(s.date)}" aria-label="Fecha de la etapa ${i + 1}">
+        <button class="icon-btn" type="button" data-del="${i}" aria-label="Quitar etapa ${i + 1}">×</button>
+      </li>`).join("");
+  }
+  $("#dv-list").addEventListener("change", (e) => {
+    const i = Number(e.target.dataset.i);
+    if (e.target.type === "checkbox") { dv.stages[i].done = e.target.checked; saveDv(); renderDv(); }
+    if (e.target.type === "date") { dv.stages[i].date = e.target.value; saveDv(); }
+  });
+  $("#dv-list").addEventListener("input", (e) => {
+    if (e.target.type === "text") { dv.stages[Number(e.target.dataset.i)].text = e.target.value; saveDv(); }
+  });
+  $("#dv-list").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-del]");
+    if (b) { dv.stages.splice(Number(b.dataset.del), 1); saveDv(); renderDv(); }
+  });
+  $("#dv-title").addEventListener("input", (e) => { dv.title = e.target.value; saveDv(); });
+  $("#dv-due").addEventListener("change", (e) => { dv.due = e.target.value; saveDv(); renderDv(); });
+  $("#dv-add").onclick = () => { dv.stages.push({ text: "Nueva etapa", done: false, date: "" }); saveDv(); renderDv(); $("#dv-t-" + (dv.stages.length - 1)).select(); };
+  $("#dv-reset").onclick = () => { dv.stages = mkStages(); saveDv(); renderDv(); };
+  $("#dv-spread").onclick = () => {
+    if (!dv.due) { $("#dv-days").textContent = "Primero poné la fecha de entrega."; return; }
+    const pending = dv.stages.filter((s) => !s.done);
+    const span = daysBetween(today(), fromIso(dv.due));
+    if (span < 0 || !pending.length) return;
+    pending.forEach((s, j) => { s.date = iso(addDays(today(), Math.round(((j + 1) * span) / pending.length))); });
+    saveDv(); renderDv();
+  };
+  renderDv();
+
+  /* ---------- Mi semana ---------- */
+  const monday = (d) => { const x = new Date(d); const w = (x.getDay() + 6) % 7; x.setDate(x.getDate() - w); x.setHours(0, 0, 0, 0); return x; };
+  let wk = store.get("wk", null);
+  if (!wk) {
+    const m = monday(today());
+    wk = { sample: true, items: [
+      { id: 1, title: "Teórico Historia del Diseño", type: "teorica", date: iso(m), time: "09:00" },
+      { id: 2, title: "Taller Tipografía", type: "taller", date: iso(addDays(m, 1)), time: "14:00" },
+      { id: 3, title: "Corrección de bocetos TP 03", type: "correccion", date: iso(addDays(m, 3)), time: "14:00" },
+      { id: 4, title: "Cambio de aula: Morfología pasa al 204", type: "aviso", date: iso(addDays(m, 2)), time: "" },
+      { id: 5, title: "Parcial Comunicación", type: "evaluacion", date: iso(addDays(m, 9)), time: "18:00" },
+      { id: 6, title: "Entrega TP 03 Pieza editorial", type: "entrega", date: iso(addDays(today(), 12)), time: "23:59" }
+    ] };
+  }
+  let wkStart = monday(today());
+  const saveWk = () => store.set("wk", wk);
+  function renderWk() {
+    const end = addDays(wkStart, 6);
+    $("#wk-label").textContent = `Semana del ${wkStart.getDate()} de ${MONTHS[wkStart.getMonth()]} al ${end.getDate()} de ${MONTHS[end.getMonth()]}`;
+    const t = iso(today());
+    let html = "";
+    for (let i = 0; i < 7; i++) {
+      const d = addDays(wkStart, i), di = iso(d);
+      const items = wk.items.filter((x) => x.date === di).sort((a, b) => (a.time || "99").localeCompare(b.time || "99"));
+      html += `<div class="day ${di === t ? "today" : ""} ${items.length ? "has" : ""}"><h4><span>${DAYS[i]} ${d.getDate()}</span>${di === t ? "<span>Hoy</span>" : ""}</h4>`
+        + (items.length ? items.map((x) => `<div class="ev k-${x.type}"><span class="meta"><span class="shape" aria-hidden="true"></span>${TYPES[x.type].split(" ")[0]}${x.time ? " · " + esc(x.time) : ""}</span><b>${esc(x.title)}</b><button class="icon-btn del" type="button" data-del="${x.id}" aria-label="Quitar ${esc(x.title)}">×</button></div>`).join("") : `<span class="small muted empty">Libre</span>`)
+        + `</div>`;
+    }
+    $("#wk-grid").innerHTML = html;
+    $("#wk-sample-note").innerHTML = wk.sample ? `<span class="example-tag">Ejemplo</span> Estos eventos son de muestra. <button class="icon-btn small" type="button" id="wk-clear" style="font-size:inherit;color:var(--accent)">Borrar ejemplos</button>` : "";
+    const clr = $("#wk-clear"); if (clr) clr.onclick = () => { wk = { sample: false, items: [] }; saveWk(); renderWk(); };
+    const next = wk.items.filter((x) => (x.type === "entrega" || x.type === "evaluacion") && x.date >= t).sort((a, b) => a.date.localeCompare(b.date))[0];
+    if (next) {
+      const n = daysBetween(today(), fromIso(next.date));
+      $("#wk-next").innerHTML = `<span class="days">${n}</span><div><b>${n === 1 ? "día" : "días"} para</b><br>${esc(next.title)}<br>${codeHtml(next.type)}</div>`;
+    } else $("#wk-next").innerHTML = `<p class="muted">No tenés entregas ni evaluaciones cargadas. Agregá la próxima para ver cuántos días faltan.</p>`;
+  }
+  $("#wk-grid").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-del]");
+    if (b) { wk.items = wk.items.filter((x) => x.id !== Number(b.dataset.del)); saveWk(); renderWk(); }
+  });
+  $("#wk-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const title = $("#wk-title").value.trim(), date = $("#wk-date").value;
+    if (!title || !date) return;
+    if (wk.sample) wk = { sample: false, items: [] };
+    wk.items.push({ id: Date.now(), title, type: $("#wk-type").value, date, time: $("#wk-time").value });
+    saveWk();
+    wkStart = monday(fromIso(date));
+    $("#wk-title").value = ""; $("#wk-time").value = "";
+    renderWk();
+  });
+  $("#wk-date").value = iso(today());
+  $("#wk-prev").onclick = () => { wkStart = addDays(wkStart, -7); renderWk(); };
+  $("#wk-nextw").onclick = () => { wkStart = addDays(wkStart, 7); renderWk(); };
+  $("#wk-today").onclick = () => { wkStart = monday(today()); renderWk(); };
+  renderWk();
+
+  /* ---------- Bloques de estudio ---------- */
+  const C = 2 * Math.PI * 52;
+  const ring = $("#tm-ring");
+  ring.style.strokeDasharray = C;
+  let tm = { focus: 10, phase: "focus", left: 600, total: 600, running: false, done: store.get("blocks", 0) };
+  let tick = null;
+  $("#tm-presets").innerHTML = [10, 15, 25].map((m) => `<button class="chip-btn" type="button" data-m="${m}" aria-pressed="false">${m} min</button>`).join("");
+  function setPreset(m) { stopTm(); tm.focus = m; tm.phase = "focus"; tm.total = tm.left = m * 60; renderTm(); }
+  $$("#tm-presets button").forEach((b) => b.onclick = () => setPreset(Number(b.dataset.m)));
+  function renderTm() {
+    $("#tm-time").textContent = pad(Math.floor(tm.left / 60)) + ":" + pad(tm.left % 60);
+    $("#tm-phase").textContent = tm.phase === "focus" ? "Bloque de foco" : "Pausa: levantate, tomá agua";
+    ring.style.strokeDashoffset = C * (1 - tm.left / tm.total);
+    ring.classList.toggle("pause", tm.phase !== "focus");
+    $("#tm-start").textContent = tm.running ? "Pausar" : (tm.left < tm.total ? "Seguir" : "Empezar");
+    $$("#tm-presets button").forEach((b) => b.setAttribute("aria-pressed", Number(b.dataset.m) === tm.focus));
+    $("#tm-done-label").textContent = tm.done ? `Bloques completados hoy: ${tm.done}` : "Todavía no completaste bloques hoy.";
+    $("#tm-blocks").innerHTML = "<i></i>".repeat(Math.min(tm.done, 24));
+  }
+  function stopTm() { clearInterval(tick); tick = null; tm.running = false; }
+  $("#tm-start").onclick = () => {
+    if (tm.running) { stopTm(); renderTm(); return; }
+    tm.running = true;
+    tick = setInterval(() => {
+      tm.left--;
+      if (tm.left <= 0) {
+        if (tm.phase === "focus") { tm.done++; store.set("blocks", tm.done); tm.phase = "break"; tm.total = tm.left = 5 * 60; }
+        else { tm.phase = "focus"; tm.total = tm.left = tm.focus * 60; stopTm(); }
+      }
+      renderTm();
+    }, 1000);
+    renderTm();
+  };
+  $("#tm-reset").onclick = () => setPreset(tm.focus);
+  renderTm();
+
+  /* ---------- Docentes: plantilla ---------- */
+  const dcIds = ["name", "que", "para", "como", "con", "cuando", "formato", "eval"];
+  function renderDc() {
+    const v = {}; dcIds.forEach((id) => v[id] = $("#dc-" + id).value.trim());
+    const etapas = v.como.split("\n").map((s) => s.trim()).filter(Boolean);
+    const ev = v.eval.split(",").map((s) => s.trim()).filter(Boolean);
+    $("#dc-card").innerHTML = `
+      <span class="tp-title">${esc(v.name || "Trabajo práctico")}</span>
+      <div class="tp-grid">
+        <div class="tp-cell key"><span class="lbl">Qué</span><span>${esc(v.que || "—")}</span></div>
+        <div class="tp-cell"><span class="lbl">Para qué</span><span>${esc(v.para || "—")}</span></div>
+      </div>
+      <div class="tp-grid">
+        <div class="tp-cell date"><span class="lbl">Entrega</span><span><b>${esc(v.cuando || "—")}</b></span></div>
+        <div class="tp-cell"><span class="lbl">Formato</span><span>${esc(v.formato || "—")}</span></div>
+        <div class="tp-cell"><span class="lbl">Con qué</span><span>${esc(v.con || "—")}</span></div>
+      </div>
+      <div class="tp-grid">
+        <div class="tp-cell"><span class="lbl">Etapas</span><ol>${etapas.map((e) => `<li>${esc(e)}</li>`).join("")}</ol></div>
+        <div class="tp-cell"><span class="lbl">Se evalúa</span><ul style="list-style:'✓  '">${ev.map((e) => `<li>${esc(e)}</li>`).join("")}</ul></div>
+      </div>`;
+    store.set("dc", v);
+  }
+  const dcSaved = store.get("dc", null);
+  if (dcSaved) dcIds.forEach((id) => { if (dcSaved[id] != null) $("#dc-" + id).value = dcSaved[id]; });
+  dcIds.forEach((id) => $("#dc-" + id).addEventListener("input", renderDc));
+  renderDc();
+  $("#dc-copy").onclick = () => {
+    const g = (id) => $("#dc-" + id).value.trim();
+    const txt = [g("name").toUpperCase(), "", "QUÉ: " + g("que"), "PARA QUÉ: " + g("para"), "ENTREGA: " + g("cuando"), "FORMATO: " + g("formato"), "CON QUÉ: " + g("con"), "ETAPAS:"]
+      .concat(g("como").split("\n").filter(Boolean).map((s, i) => pad(i + 1) + ". " + s.trim()))
+      .concat(["SE EVALÚA:"], g("eval").split(",").filter(Boolean).map((s) => "✓ " + s.trim())).join("\n");
+    copyText(txt, $("#dc-msg"));
+  };
+
+  /* ---------- Estado inicial ---------- */
+  const hash = (location.hash || "").slice(1);
+  goTab(mainTabs.some((t) => t.getAttribute("aria-controls") === hash) ? hash : store.get("tab", "inicio"));
+  goSub(store.get("sub", "primer"));
+})();
+</script>
