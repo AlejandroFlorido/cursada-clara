@@ -822,15 +822,26 @@ Entrega</textarea></label>
   /* ---------- Traductor de consignas ---------- */
   const trIds = ["que", "comunicar", "cuenta", "entregar", "fecha", "paso"];
   const trLabels = { que: "Qué hacer", comunicar: "Qué comunicar", cuenta: "Qué tener en cuenta", entregar: "Qué entregar", fecha: "Fecha", paso: "Primer paso" };
+  const TR_VERBS = { diseñ: "diseñar", rediseñ: "rediseñar", realiz: "realizar", elabor: "elaborar", cre: "crear", desarroll: "desarrollar", produc: "producir", produzc: "producir", propon: "proponer", propong: "proponer", analiz: "analizar", investig: "investigar", present: "presentar", ilustr: "ilustrar", maquet: "maquetar", redact: "redactar", constru: "construir", construy: "construir", arm: "armar", gener: "generar", confeccion: "confeccionar", plante: "plantear", resolv: "resolver", resuelv: "resolver", explor: "explorar", relev: "relevar", fotografi: "fotografiar", dibuj: "dibujar", intervin: "intervenir", interven: "intervenir", proyect: "proyectar", escrib: "escribir", compar: "comparar", seleccion: "seleccionar", investigu: "investigar", realic: "realizar", analic: "analizar", organiz: "organizar", organic: "organizar", document: "documentar", grab: "grabar", edit: "editar", entrevist: "entrevistar", bocet: "bocetar" };
+  // Infinitivo (diseñar), subjuntivo (diseñe, diseñen), "deberán diseñar" o voseo (diseñá); la palabra entera, aunque lleve tildes o ñ
+  const TR_VERB = new RegExp("(?<![\\p{L}])(" + Object.keys(TR_VERBS).sort((a, b) => b.length - a.length).join("|") + ")(?:ar|er|ir|en|an|e|á|é|í)(?![\\p{L}])", "giu");
   function translate(text) {
     const t = text.replace(/\s+/g, " ").trim();
     const out = {};
-    const first = (t.split(/(?<=\.)\s/)[0] || t);
-    const q = first.match(/^(.+?)(?:\s+que\s+|,|\.|\s+teniendo)/i);
-    out.que = q ? q[1].trim() : first.slice(0, 80);
+    // Qué hacer: cada verbo de tarea en infinitivo + su objeto, en el orden en que aparecen
+    const plain = t.replace(/\s*\([^)]*\)/g, "");
+    const acts = [];
+    for (const m of plain.matchAll(TR_VERB)) {
+      if (/\b(el|la|lo|los|las|del|al|se)\s*$/i.test(plain.slice(0, m.index))) continue; // "el presente trabajo", "se propone"
+      const inf = TR_VERBS[m[1].toLowerCase()];
+      const obj = plain.slice(m.index + m[0].length).split(/\s+y\s+que\s+|\s+que\s+|[,.;:]|\s+teniendo\s/i)[0].trim();
+      const act = (inf.charAt(0).toUpperCase() + inf.slice(1) + " " + obj).trim();
+      if (!acts.some((x) => x.startsWith(inf.charAt(0).toUpperCase() + inf.slice(1)))) acts.push(act);
+    }
+    out.que = acts.slice(0, 4).join(" · ");
     const c = t.match(/comuni(?:que|car|quen)\s+(.+?)(?:,|\.|\s+teniendo|\s+para\s)/i);
     out.comunicar = c ? c[1].replace(/^(el|la|los|las)\s+/i, "").trim() : "";
-    const k = t.match(/(?:teniendo en cuenta|considerando|tener en cuenta)\s+(.+?)\./i);
+    const k = t.match(/(?:teniendo en cuenta|considerando|tener en cuenta|tengan en cuenta|tené en cuenta)\s+(.+?)\./i);
     out.cuenta = k ? k[1].split(/,\s*|\s+y\s+/).map((s) => s.trim()).filter(Boolean).join(" · ") : "";
     const fm = t.match(/\b(PDF|JPG|PNG|editable|impres[oa]|maqueta|archivo abierto|AI|PSD|InDesign)\b/gi);
     out.entregar = fm ? Array.from(new Set(fm.map((s) => /^(pdf|jpg|png|ai|psd)$/i.test(s) ? s.toUpperCase() : (s.toLowerCase() === "editable" ? "archivo editable" : s.toLowerCase())))).join(" + ") : "";
@@ -846,7 +857,7 @@ Entrega</textarea></label>
     const v = {}; trIds.forEach((id) => v[id] = $("#tr-" + id).value.trim());
     const cell = (id, cls) => `<div class="tp-cell ${cls || ""}"><span class="lbl">${trLabels[id]}</span><span>${esc(v[id] || "—")}</span></div>`;
     $("#tr-card").innerHTML = `
-      <span class="tp-title">${esc(v.que || "Consigna")}</span>
+      <span class="tp-title">${v.que.includes(" · ") ? v.que.split(" · ").map((a, i) => (i + 1) + ". " + esc(a)).join("<br>") : esc(v.que || "Consigna")}</span>
       <div class="tp-grid">${cell("comunicar")}${cell("cuenta")}${cell("entregar")}${cell("fecha", "date")}</div>
       ${trEval.length ? `<div class="tp-cell"><span class="lbl">Se evalúa</span><ul>${trEval.map((e) => `<li>${esc(e)}</li>`).join("")}</ul></div>` : ""}
       ${cell("paso", "key")}`;
@@ -872,7 +883,7 @@ Entrega</textarea></label>
     copyText(lines.join("\n"), $("#tr-msg"));
   };
   $("#tr-toplan").onclick = () => {
-    dv.title = $("#tr-que").value || dv.title;
+    dv.title = $("#tr-que").value.split(" · ")[0] || dv.title;
     const f = $("#tr-fecha").value.match(/(\d{1,2})\/(\d{1,2})/);
     if (f) {
       let d = new Date(today().getFullYear(), Number(f[2]) - 1, Number(f[1]));
