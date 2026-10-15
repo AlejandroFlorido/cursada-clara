@@ -114,6 +114,7 @@ main > section { scroll-margin-top: calc(var(--header-h, 9rem) + 16px); display:
   background: var(--accent); color: var(--accent-ink); border: 1px solid var(--accent); border-radius: 8px;
   padding: 0.55rem 1rem; cursor: pointer; min-height: 40px;
 }
+a.btn { text-decoration: none; display: inline-flex; align-items: center; }
 .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
 .btn:disabled { opacity: 0.45; cursor: default; }
 .row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
@@ -276,6 +277,27 @@ textarea { resize: vertical; min-height: 7rem; line-height: 1.5; }
 .ba.before { background: var(--sunken); }
 .ba.after { background: var(--accent-soft); }
 
+/* ---------- Apoyo ---------- */
+.area { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
+.area h3 { font-size: var(--step-1); }
+.area .when { font-size: var(--step--1); color: var(--muted); }
+.contact-list { display: grid; grid-template-columns: max-content 1fr; gap: 0.3rem 0.9rem; margin: 0; font-size: var(--step--1); }
+.contact-list dt { font-weight: 700; color: var(--muted); }
+.contact-list dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+.todo { color: var(--muted); font-style: italic; }
+.note .row { margin-top: 0.6rem; }
+.note .btn { font-size: var(--step--1); min-height: 36px; padding: 0.4rem 0.85rem; }
+
+/* ---------- Contacto (pie) ---------- */
+.contact { max-width: 72rem; margin: 0 auto; padding-inline: 16px; padding-block: 0 2.5rem; scroll-margin-top: calc(var(--header-h, 9rem) + 16px); }
+.contact > .panel { border-top: 4px solid var(--accent); }
+.checks { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; border: 0; margin: 0; padding: 0; }
+.checks legend { font-weight: 700; font-size: var(--step--1); padding: 0; margin-bottom: 0.3rem; }
+.checks label { display: inline-flex; align-items: center; gap: 0.4rem; font-size: var(--step-0); }
+.checks input { width: 20px; height: 20px; accent-color: var(--accent); }
+input[type="email"] { font: inherit; font-weight: 400; font-size: var(--step-0); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.7rem; width: 100%; min-width: 0; }
+.preview { white-space: pre-wrap; background: var(--bg); border: 1px dashed var(--line); border-radius: 8px; padding: 0.9rem; font-size: var(--step--1); overflow-wrap: anywhere; margin: 0; font-family: var(--f-body); }
+
 footer { max-width: 72rem; margin: 0 auto; padding-inline: 16px; padding-block: 0 3rem; color: var(--muted); font-size: var(--step--1); }
 
 html.calm *, html.calm *::before, html.calm *::after { transition: none !important; animation: none !important; }
@@ -304,6 +326,7 @@ html.calm *, html.calm *::before, html.calm *::after { transition: none !importa
       <a class="tab" href="#consignas" id="tab-consignas">Consignas<small>Orientar</small></a>
       <a class="tab" href="#herramientas" id="tab-herramientas">Herramientas<small>Acompañar</small></a>
       <a class="tab" href="#docentes" id="tab-docentes">Docentes<small>Comunicar claro</small></a>
+      <a class="tab" href="#apoyo" id="tab-apoyo">Apoyo<small>Áreas pedagógicas</small></a>
     </nav>
   </div>
 </header>
@@ -384,7 +407,13 @@ html.calm *, html.calm *::before, html.calm *::after { transition: none !importa
     </div>
     <div class="grid-3" id="myths"></div>
 
-    <div class="note">Este sitio no diagnostica. Si te sentís identificado o identificada, podés consultar con profesionales de salud mental o con el área de bienestar estudiantil de tu universidad. <span class="example-tag">Completar</span> enlace a los recursos institucionales.</div>
+    <div class="note">
+      <p>Este sitio no diagnostica. Si te sentís identificado o identificada, podés consultar con profesionales de salud mental o con las áreas pedagógicas y de bienestar de tu universidad.</p>
+      <div class="row">
+        <a class="btn" href="#contacto" data-scroll="contacto">Escribirle a un psicopedagogo</a>
+        <a class="btn ghost" href="#apoyo" data-go="apoyo">Ver áreas y contactos</a>
+      </div>
+    </div>
   </section>
 
   <!-- ================= CONSIGNAS ================= -->
@@ -609,7 +638,69 @@ Entrega</textarea></label>
       <li><b>Un único canal para cambios</b><p class="small muted">Cambios de aula o fecha siempre por el mismo medio y con el mismo código visual.</p></li>
     </ul>
   </section>
+
+  <!-- ================= APOYO ================= -->
+  <section id="apoyo">
+    <div class="lead">
+      <span class="eyebrow">Áreas pedagógicas</span>
+      <h2>A quién podés recurrir en la universidad</h2>
+      <p>No tenés que resolver todo sola o solo. Estas áreas acompañan a estudiantes con dificultades para organizarse, cursar o rendir. Pedir ayuda es parte de cursar.</p>
+    </div>
+    <p class="small muted"><span class="example-tag">Borrador</span> Los nombres de las áreas, teléfonos, mails y horarios son de ejemplo y hay que completarlos con los datos reales de la facultad.</p>
+    <div class="grid-2" id="areas"></div>
+    <div class="note">
+      <p><b>¿No sabés a cuál ir?</b> Escribí a cualquiera: si no les corresponde, te derivan. Podés armar el mensaje acá abajo y llevarlo escrito.</p>
+      <div class="row"><a class="btn" href="#contacto" data-scroll="contacto">Armar un mensaje</a></div>
+    </div>
+  </section>
 </main>
+
+<!-- ================= CONTACTO (pie) ================= -->
+<section class="contact" id="contacto" aria-labelledby="ct-title">
+  <div class="panel">
+    <div class="lead">
+      <span class="eyebrow">Contacto</span>
+      <h2 id="ct-title">Escribirle a un psicopedagogo</h2>
+      <p class="small muted">Completá lo que quieras: no hace falta contar todo ni tener un diagnóstico. Este formulario no envía nada por sí solo: te arma el mensaje para que lo mandes desde tu correo o lo copies. El borrador queda guardado solo en tu navegador.</p>
+    </div>
+    <div class="grid-2">
+      <form id="ct-form" style="display:flex;flex-direction:column;gap:0.9rem;min-width:0" novalidate>
+        <label class="field" for="ct-area">¿A qué área?<select id="ct-area"></select></label>
+        <div class="row">
+          <label class="field" for="ct-name" style="flex:1 1 12rem">Tu nombre<input type="text" id="ct-name" autocomplete="name"></label>
+          <label class="field" for="ct-carrera" style="flex:1 1 12rem">Carrera y año<input type="text" id="ct-carrera" placeholder="Ej.: Diseño Gráfico, 2.º año"></label>
+        </div>
+        <label class="field" for="ct-email">Mail para que te respondan<input type="email" id="ct-email" autocomplete="email"></label>
+        <fieldset class="checks" id="ct-motivos">
+          <legend>¿Sobre qué querés hablar?</legend>
+          <label><input type="checkbox" value="Organizar mis tiempos y entregas"> Organizar tiempos y entregas</label>
+          <label><input type="checkbox" value="Entender consignas"> Entender consignas</label>
+          <label><input type="checkbox" value="Preparar exámenes o finales"> Exámenes o finales</label>
+          <label><input type="checkbox" value="Pedir adecuaciones o ajustes en la cursada"> Pedir adecuaciones</label>
+          <label><input type="checkbox" value="Cómo me estoy sintiendo con la cursada"> Cómo me siento</label>
+          <label><input type="checkbox" value="Otro tema"> Otro</label>
+        </fieldset>
+        <label class="field" for="ct-msg">Contalo con tus palabras<textarea id="ct-msg" placeholder="Ej.: Me cuesta empezar los TP y se me juntan las entregas. Quería saber si puedo tener una reunión."></textarea></label>
+        <fieldset class="checks">
+          <legend>¿Cómo preferís el primer contacto?</legend>
+          <label><input type="radio" name="ct-modo" value="Por mail" checked> Por mail</label>
+          <label><input type="radio" name="ct-modo" value="Reunión presencial"> Presencial</label>
+          <label><input type="radio" name="ct-modo" value="Videollamada"> Videollamada</label>
+        </fieldset>
+      </form>
+      <div style="display:flex;flex-direction:column;gap:0.75rem;min-width:0">
+        <h3>Así queda tu mensaje</h3>
+        <pre class="preview" id="ct-preview" aria-live="polite"></pre>
+        <div class="row">
+          <a class="btn" id="ct-mail" href="#">Abrir en mi correo</a>
+          <button class="btn ghost" type="button" id="ct-copy">Copiar mensaje</button>
+          <button class="btn ghost" type="button" id="ct-clear">Borrar borrador</button>
+        </div>
+        <span class="small muted" id="ct-status"></span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <footer>
   <p>Cursada Clara es un prototipo de un proyecto de Diseño Gráfico sobre TDAH en la universidad. Los datos que cargues quedan solo en tu navegador.</p>
@@ -1129,9 +1220,91 @@ Entrega</textarea></label>
     copyText(txt, $("#dc-msg"));
   };
 
+  /* ---------- Apoyo: áreas pedagógicas ----------
+     BORRADOR: completar con los datos reales de la facultad.
+     Los campos vacíos se muestran como "A completar". */
+  const AREAS = [
+    { id: "psicopedagogia", nombre: "Gabinete psicopedagógico", que: "Acompaña dificultades de aprendizaje, organización del estudio y estrategias para cursar y rendir.", cuando: "Si te cuesta sostener la cursada, empezar tareas o preparar exámenes.", tel: "", mail: "", horario: "", lugar: "" },
+    { id: "orientacion", nombre: "Orientación pedagógica / tutorías", que: "Tutores que ayudan a planificar la cursada, elegir cuántas materias hacer y armar un plan de estudio.", cuando: "Al inscribirte a materias o si te atrasaste con la carrera.", tel: "", mail: "", horario: "", lugar: "" },
+    { id: "accesibilidad", nombre: "Área de accesibilidad e inclusión", que: "Gestiona adecuaciones razonables: más tiempo en exámenes, consignas por escrito, otros formatos de evaluación.", cuando: "Si necesitás ajustes en la cursada o en las evaluaciones.", tel: "", mail: "", horario: "", lugar: "" },
+    { id: "bienestar", nombre: "Bienestar estudiantil", que: "Orientación en salud, salud mental, becas y situaciones personales que afectan la cursada.", cuando: "Si te sentís desbordada o desbordado, o necesitás una consulta con profesionales.", tel: "", mail: "", horario: "", lugar: "" },
+    { id: "academica", nombre: "Secretaría académica / de alumnos", que: "Trámites, regularidad, fechas de examen, cambios de comisión y reclamos sobre la cursada.", cuando: "Para consultas administrativas o si un problema con una materia no se resuelve con la cátedra.", tel: "", mail: "", horario: "", lugar: "" }
+  ];
+  const todo = '<span class="todo">A completar</span>';
+  const contactRow = (label, v, href) => `<dt>${label}</dt><dd>${v ? (href ? `<a href="${esc(href)}">${esc(v)}</a>` : esc(v)) : todo}</dd>`;
+  $("#areas").innerHTML = AREAS.map((a) => `
+    <article class="area">
+      <h3>${esc(a.nombre)}</h3>
+      <p class="small">${esc(a.que)}</p>
+      <p class="when"><b>Cuándo ir:</b> ${esc(a.cuando)}</p>
+      <dl class="contact-list">
+        ${contactRow("Teléfono", a.tel, a.tel ? "tel:" + a.tel.replace(/[^\d+]/g, "") : "")}
+        ${contactRow("Mail", a.mail, a.mail ? "mailto:" + a.mail : "")}
+        ${contactRow("Horario", a.horario)}
+        ${contactRow("Dónde", a.lugar)}
+      </dl>
+      <div class="row"><a class="btn ghost" href="#contacto" data-scroll="contacto" data-area="${esc(a.id)}">Escribir a esta área</a></div>
+    </article>`).join("");
+
+  /* ---------- Contacto (pie): arma el mensaje, no envía nada ---------- */
+  const ct = store.get("contacto", {});
+  $("#ct-area").innerHTML = AREAS.map((a) => `<option value="${esc(a.id)}">${esc(a.nombre)}</option>`).join("");
+  const ctFields = ["area", "name", "carrera", "email", "msg"];
+  ctFields.forEach((k) => { if (ct[k]) $("#ct-" + k).value = ct[k]; });
+  $$("#ct-motivos input").forEach((c) => { c.checked = (ct.motivos || []).includes(c.value); });
+  $$('input[name="ct-modo"]').forEach((r) => { if (ct.modo) r.checked = r.value === ct.modo; });
+  function ctRead() {
+    const d = {};
+    ctFields.forEach((k) => { d[k] = $("#ct-" + k).value.trim(); });
+    d.motivos = $$("#ct-motivos input:checked").map((c) => c.value);
+    d.modo = ($('input[name="ct-modo"]:checked') || {}).value || "";
+    return d;
+  }
+  function ctCompose(d) {
+    const area = AREAS.find((a) => a.id === d.area) || AREAS[0];
+    const lines = ["Hola, equipo de " + area.nombre + ":", ""];
+    lines.push("Mi nombre es " + (d.name || "[tu nombre]") + (d.carrera ? ", curso " + d.carrera : "") + ".");
+    if (d.motivos.length) lines.push("Quería consultarles sobre: " + d.motivos.join("; ").toLowerCase() + ".");
+    if (d.msg) lines.push("", d.msg);
+    lines.push("", "Para el primer contacto prefiero: " + d.modo.toLowerCase() + ".");
+    if (d.email) lines.push("Me pueden responder a " + d.email + ".");
+    lines.push("", "Gracias.", d.name || "");
+    return { area, subject: "Consulta de estudiante" + (d.motivos.length ? ": " + d.motivos[0].toLowerCase() : ""), body: lines.join("\n").trim() };
+  }
+  function ctRender() {
+    const d = ctRead();
+    store.set("contacto", d);
+    const m = ctCompose(d);
+    $("#ct-preview").textContent = "Asunto: " + m.subject + "\n\n" + m.body;
+    $("#ct-mail").href = "mailto:" + encodeURIComponent(m.area.mail || "") + "?subject=" + encodeURIComponent(m.subject) + "&body=" + encodeURIComponent(m.body);
+    $("#ct-status").textContent = m.area.mail ? "" : "Todavía no está cargado el mail de esta área: vas a tener que escribir la dirección en tu correo.";
+  }
+  $("#ct-form").addEventListener("input", ctRender);
+  $("#ct-form").addEventListener("change", ctRender);
+  $("#ct-form").addEventListener("submit", (e) => e.preventDefault());
+  $("#ct-copy").onclick = () => copyText($("#ct-preview").textContent, $("#ct-status"));
+  $("#ct-clear").onclick = () => {
+    $("#ct-form").reset();
+    store.set("contacto", {});
+    ctRender();
+    $("#ct-status").textContent = "Borrador borrado.";
+  };
+  ctRender();
+  // Botones que bajan al formulario del pie (y eligen el área si corresponde).
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-scroll]");
+    if (!b) return;
+    e.preventDefault();
+    if (b.dataset.area) { $("#ct-area").value = b.dataset.area; ctRender(); }
+    scrollToPanel(b.dataset.scroll);
+    history.replaceState(null, "", "#" + b.dataset.scroll);
+    setTimeout(() => $("#ct-area").focus({ preventScroll: true }), prefs.calm || reduceMotion.matches ? 0 : 450);
+  });
+
   /* ---------- Estado inicial ---------- */
   const hash = (location.hash || "").slice(1);
   goSub(store.get("sub", "primer"));
   if (sectionIds.includes(hash)) window.addEventListener("load", () => goTab(hash, true));
+  if (hash === "contacto") window.addEventListener("load", () => scrollToPanel("contacto"));
 })();
 </script>
