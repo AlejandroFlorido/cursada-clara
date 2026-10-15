@@ -298,6 +298,16 @@ textarea { resize: vertical; min-height: 7rem; line-height: 1.5; }
 input[type="email"] { font: inherit; font-weight: 400; font-size: var(--step-0); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.7rem; width: 100%; min-width: 0; }
 .preview { white-space: pre-wrap; background: var(--bg); border: 1px dashed var(--line); border-radius: 8px; padding: 0.9rem; font-size: var(--step--1); overflow-wrap: anywhere; margin: 0; font-family: var(--f-body); }
 
+/* ---------- Equipo ---------- */
+.team { max-width: 72rem; margin: 0 auto; padding-inline: 16px; padding-block: 0 2.5rem; }
+.team .lead { margin-bottom: 1rem; }
+.team-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.75rem; }
+.person { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.1rem; display: flex; align-items: center; gap: 0.8rem; min-width: 0; }
+.initials { flex: none; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--accent-soft); color: var(--ink); display: grid; place-items: center; font-family: var(--f-display); font-weight: 700; font-size: var(--step--1); }
+.person b { display: block; overflow-wrap: anywhere; }
+.person span { font-size: var(--step--1); color: var(--muted); }
+.copyright { border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 1rem; }
+
 footer { max-width: 72rem; margin: 0 auto; padding-inline: 16px; padding-block: 0 3rem; color: var(--muted); font-size: var(--step--1); }
 
 html.calm *, html.calm *::before, html.calm *::after { transition: none !important; animation: none !important; }
@@ -702,8 +712,23 @@ Entrega</textarea></label>
   </div>
 </section>
 
+<!-- ================= EQUIPO ================= -->
+<section class="team" id="equipo" aria-labelledby="eq-title">
+  <div class="lead">
+    <span class="eyebrow">Equipo</span>
+    <h2 id="eq-title">Quiénes hacemos Cursada Clara</h2>
+  </div>
+  <ul class="team-list">
+    <li class="person"><span class="initials" aria-hidden="true">DW</span><div><b>Delfina Wetzel</b><span>Directora del proyecto</span></div></li>
+    <li class="person"><span class="initials" aria-hidden="true">GV</span><div><b>Gonzalo Agustín Villalba Brizuela</b><span>Director del proyecto</span></div></li>
+    <li class="person"><span class="initials" aria-hidden="true">SV</span><div><b>Selene Vaquer</b><span>Directora del proyecto</span></div></li>
+    <li class="person"><span class="initials" aria-hidden="true">AF</span><div><b>Alejandro Gabriel Florido</b><span>Desarrollo web · programador freelancer externo</span></div></li>
+  </ul>
+</section>
+
 <footer>
   <p>Cursada Clara es un prototipo de un proyecto de Diseño Gráfico sobre TDAH en la universidad. Los datos que cargues quedan solo en tu navegador.</p>
+  <p class="copyright"><small>© 2026 Alejandro Gabriel Florido. Todos los derechos reservados.</small></p>
 </footer>
 
 <script>
