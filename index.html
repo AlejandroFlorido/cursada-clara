@@ -1,4 +1,5 @@
 <title>unpovdiferente</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Lexend:wght@400;500;600;700&display=swap">
@@ -85,6 +86,16 @@ a { color: var(--accent-text); }
 .muted { color: var(--muted); }
 .small { font-size: var(--step--1); }
 
+/* Viñeta propia: el punto garabateado del proyecto, en naranja. */
+.scribble-list, .line-card ul.scribble-list { list-style: none; padding-left: 0; }
+.scribble-list li, .tips li b { position: relative; padding-left: 1.5em; }
+.tips li b { display: block; }
+.scribble-list li::before, .tips li b::before {
+  content: ""; position: absolute; left: 0; top: 0.2em; width: 1.05em; height: 1.05em;
+  background: var(--accent); -webkit-mask: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAQAAAAm93DmAAADvklEQVRIx6XWWWxUVRzH8U9pC5alLIIWClJBVAiICxgMorIqiSIqPBAhasRoYiQhAaM88ISRJUH0QXlQo6gkpoCgRRIBFRJkh7KUJSCB1pKyTGGA0nV6fHCoLcNA6fzuw805955v/sv5n/PnZuqhQKWf9Zei2uqCNLPV2KtWoUnSUwHmGKW9Nn5z2nD5goixqQDTdZenk0J7ZevpE0cVGpOa2610td8JvZBmomp/G5IaMsc+1Z4FWRY6p0B2ao5/qd7E+CjTAlXG3dqx5IrZLs1j8fzW2iHTNFnNt6iDPnrrgIH6gEEi9uoM8ixWp9IMnWRrl2wbpcXfGSZ61/1iim0xQobpojpZYoC3RfU33SPgomPqVTljoxXKk1n3kvMq7bLPRUEQHFTklDJV/lERn2v61Plex2TAAy55Qwd3mmL7DZcHNeoEZQ7b43cRwVXPJAPW2qGzoeY5qjIBVS+o9ZH9go/lGu1TEUHUE9eDMuLvXw0y16u6JU1ZhXRrDTBSrjG6o8LnCpP9PlBRE5vO22S5q43ilW+zNWri4yvWmygzeZaZZqm2Ik4otd5WxwUr4nUCF7TWDjHFNshXpKMarY0UtcGZRHSWlYItxmvdMPeyKwnx/F4fbQyx2nE7/aVEkZ+Mu1YiaY2Q/czymrNmKNBKnmHGezFeGbUypCHYZq2HnLPLSfViosoN8IECSxKtbGu2ciW+slKxWCO7SpwUBLUuOmKGTk3WdfSDszdKTWcTbE7YvjWCWnudEQRRExISutol39wIOEFU3XXAy04LgjK/qBdcbHJ255njmMNmxiu+SQzpZpRechS511APy2n0LaZEb2n4w2QR5JnidVmWWu5k0v3bcIpk+UxwysEmsfwvjh8a7E2HnPejJzVTXe0RHLFbEBQ7qKoBeVXEFZuM0aa5uHvMVyOocMgy7xsm13bBaVFBxCqTrkWtObAFdqoU7DDa3aCvd5wWVNpvvsfd0VwYrSz2nRdsE8xClrG+VSIIqs2Re/PlGQkzbfS3wR49XJZlocGGy3TUCSOUy1d6u8CYMq+4S46Yt8QcschWhaZ6SqnzzXf1f/X1hWLBn0bqFc9jmq8Fy1ra4bQyTzCv0UwXuwXvNWfpjVTvkNDkRnvAfaJ2tBRITH0T90bKdsDhlgMflK57Q6V39jzWudxyYBn6NeyB5zwqYp1wa2AyDXPJ4XhDkmeXYNXtdDWJam+9YBF6Wik45+lUcDBVtTNm2iioNju1HhuyrYwfVhfM1TZVHAywRqlNJje6WG+pfwFLG5gJbp/7jwAAAABJRU5ErkJggg==") center / contain no-repeat; mask: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAQAAAAm93DmAAADvklEQVRIx6XWWWxUVRzH8U9pC5alLIIWClJBVAiICxgMorIqiSIqPBAhasRoYiQhAaM88ISRJUH0QXlQo6gkpoCgRRIBFRJkh7KUJSCB1pKyTGGA0nV6fHCoLcNA6fzuw805955v/sv5n/PnZuqhQKWf9Zei2uqCNLPV2KtWoUnSUwHmGKW9Nn5z2nD5goixqQDTdZenk0J7ZevpE0cVGpOa2610td8JvZBmomp/G5IaMsc+1Z4FWRY6p0B2ao5/qd7E+CjTAlXG3dqx5IrZLs1j8fzW2iHTNFnNt6iDPnrrgIH6gEEi9uoM8ixWp9IMnWRrl2wbpcXfGSZ61/1iim0xQobpojpZYoC3RfU33SPgomPqVTljoxXKk1n3kvMq7bLPRUEQHFTklDJV/lERn2v61Plex2TAAy55Qwd3mmL7DZcHNeoEZQ7b43cRwVXPJAPW2qGzoeY5qjIBVS+o9ZH9go/lGu1TEUHUE9eDMuLvXw0y16u6JU1ZhXRrDTBSrjG6o8LnCpP9PlBRE5vO22S5q43ilW+zNWri4yvWmygzeZaZZqm2Ik4otd5WxwUr4nUCF7TWDjHFNshXpKMarY0UtcGZRHSWlYItxmvdMPeyKwnx/F4fbQyx2nE7/aVEkZ+Mu1YiaY2Q/czymrNmKNBKnmHGezFeGbUypCHYZq2HnLPLSfViosoN8IECSxKtbGu2ciW+slKxWCO7SpwUBLUuOmKGTk3WdfSDszdKTWcTbE7YvjWCWnudEQRRExISutol39wIOEFU3XXAy04LgjK/qBdcbHJ255njmMNmxiu+SQzpZpRechS511APy2n0LaZEb2n4w2QR5JnidVmWWu5k0v3bcIpk+UxwysEmsfwvjh8a7E2HnPejJzVTXe0RHLFbEBQ7qKoBeVXEFZuM0aa5uHvMVyOocMgy7xsm13bBaVFBxCqTrkWtObAFdqoU7DDa3aCvd5wWVNpvvsfd0VwYrSz2nRdsE8xClrG+VSIIqs2Re/PlGQkzbfS3wR49XJZlocGGy3TUCSOUy1d6u8CYMq+4S46Yt8QcschWhaZ6SqnzzXf1f/X1hWLBn0bqFc9jmq8Fy1ra4bQyTzCv0UwXuwXvNWfpjVTvkNDkRnvAfaJ2tBRITH0T90bKdsDhlgMflK57Q6V39jzWudxyYBn6NeyB5zwqYp1wa2AyDXPJ4XhDkmeXYNXtdDWJam+9YBF6Wik45+lUcDBVtTNm2iioNju1HhuyrYwfVhfM1TZVHAywRqlNJje6WG+pfwFLG5gJbp/7jwAAAABJRU5ErkJggg==") center / contain no-repeat;
+}
+.tips li p { padding-left: 1.5em; }
+
 /* ---------- Cabecera ---------- */
 .top {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
@@ -93,7 +104,7 @@ a { color: var(--accent-text); }
 .top-inner { max-width: 72rem; margin: 0 auto; padding: 0.75rem 16px 0; display: flex; flex-direction: column; gap: 0.6rem; }
 .brand-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .brand { display: flex; align-items: center; gap: 0.6rem; }
-.brand-mark { width: 32px; height: 32px; flex: none; }
+.brand-logo { display: block; height: 52px; width: auto; }
 .brand b { font-family: var(--f-display); font-size: 1.15rem; font-weight: 700; }
 .brand span { color: var(--muted); font-size: var(--step--1); }
 .prefs { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; }
@@ -348,11 +359,10 @@ html.calm *, html.calm *::before, html.calm *::after { transition: none !importa
   <div class="top-inner">
     <div class="brand-row">
       <div class="brand">
-        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-          <rect x="2" y="2" width="28" height="28" rx="7" fill="var(--accent)"/>
-          <path d="M9 11h14M9 16h9M9 21h5" stroke="var(--accent-ink)" stroke-width="2.6" stroke-linecap="round"/>
-        </svg>
-        <div><b>unpovdiferente</b><br><span>TDAH y universidad</span></div>
+        <picture>
+          <source srcset="assets/logo-oscuro.png" media="(prefers-color-scheme: dark)">
+          <img class="brand-logo" src="assets/logo.png" alt="TDAH: unpovdiferente" width="294" height="140">
+        </picture>
       </div>
       <div class="prefs" role="group" aria-label="Ajustes de lectura">
         <button class="chip-btn" id="pref-size" type="button" aria-label="Cambiar tamaño de texto">Texto: normal</button>
@@ -409,17 +419,17 @@ html.calm *, html.calm *::before, html.calm *::after { transition: none !importa
       <button class="line-card" type="button" data-go="entender">
         <span class="num">01 · INFORMAR</span>
         <h3>Entender qué me pasa</h3>
-        <ul><li>Qué es el TDAH, en tres ideas</li><li>Mitos y realidades</li><li>Situaciones típicas de la cursada</li></ul>
+        <ul class="scribble-list"><li>Qué es el TDAH, en tres ideas</li><li>Mitos y realidades</li><li>Situaciones típicas de la cursada</li></ul>
       </button>
       <button class="line-card" type="button" data-go="consignas">
         <span class="num">02 · ORIENTAR</span>
         <h3>Ordenar la información</h3>
-        <ul><li>Traductor de consignas</li><li>Mapa de la cursada</li><li>Códigos visuales para la cursada</li></ul>
+        <ul class="scribble-list"><li>Traductor de consignas</li><li>Mapa de la cursada</li><li>Códigos visuales para la cursada</li></ul>
       </button>
       <button class="line-card" type="button" data-go="herramientas">
         <span class="num">03 · ACOMPAÑAR</span>
         <h3>Hacer, paso a paso</h3>
-        <ul><li>Primer paso para arrancar</li><li>Dividir una entrega en etapas</li><li>Calendario semanal y bloques de estudio</li></ul>
+        <ul class="scribble-list"><li>Primer paso para arrancar</li><li>Dividir una entrega en etapas</li><li>Calendario semanal y bloques de estudio</li></ul>
       </button>
     </div>
   </section>
@@ -1030,7 +1040,7 @@ Entrega</textarea></label>
     $("#tr-card").innerHTML = `
       <span class="tp-title">${v.que.includes(" · ") ? v.que.split(" · ").map((a, i) => (i + 1) + ". " + esc(a)).join("<br>") : esc(v.que || "Consigna")}</span>
       <div class="tp-grid">${cell("comunicar")}${cell("cuenta")}${cell("entregar")}${cell("fecha", "date")}</div>
-      ${trEval.length ? `<div class="tp-cell"><span class="lbl">Se evalúa</span><ul>${trEval.map((e) => `<li>${esc(e)}</li>`).join("")}</ul></div>` : ""}
+      ${trEval.length ? `<div class="tp-cell"><span class="lbl">Se evalúa</span><ul class="scribble-list">${trEval.map((e) => `<li>${esc(e)}</li>`).join("")}</ul></div>` : ""}
       ${cell("paso", "key")}`;
     store.set("tr", { input: $("#tr-input").value, v, ev: trEval });
   }
