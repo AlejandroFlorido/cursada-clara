@@ -1,6 +1,6 @@
-# Cursada Clara
+# unpovdiferente
 
-Web con herramientas para estudiantes universitarios con TDAH o dificultades de aprendizaje. Nombre provisorio.
+Web con herramientas para estudiantes universitarios con TDAH o dificultades de aprendizaje. Proyecto **unpovdiferente**. Colores: naranja `#FF6E2B` (principal) y azul `#1D58FE` (secundario), con letras en negro o blanco.
 
 El proyecto se organiza en tres líneas:
 

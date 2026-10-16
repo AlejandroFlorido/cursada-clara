@@ -1,20 +1,27 @@
-<title>Cursada Clara</title>
+<title>unpovdiferente</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Lexend:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: cabecera fija con pestañas, una sola columna de lectura (máx. 72rem), herramientas en paneles de dos columnas que se apilan en móvil. */
 :root {
-  --bg: #F2F4F3;
+  /* Paleta unpovdiferente: naranja #FF6E2B (principal) y azul #1D58FE (secundario); letras en negro o blanco.
+     Contraste: el naranja va de fondo con letra negra (7.6:1); con letra blanca no alcanza (2.8:1).
+     El azul lleva letra blanca (5.4:1) y en modo claro es el color de texto destacado y links. */
+  --bg: #F6F6F6;
   --surface: #FFFFFF;
-  --sunken: #E7EBE9;
-  --ink: #1C2623;
-  --muted: #56635F;
-  --line: #D3DAD7;
-  --accent: #1F6F5C;
-  --accent-ink: #FFFFFF;
-  --accent-soft: #DCEDE7;
-  --focus: #E8A33D;
+  --sunken: #ECECEC;
+  --ink: #111111;
+  --muted: #4A4A4A;
+  --line: #D6D6D6;
+  --brand: #FF6E2B;
+  --brand-2: #1D58FE;
+  --accent: var(--brand);       /* rellenos, barras, bordes de estado */
+  --accent-ink: #000000;        /* letra sobre naranja */
+  --accent-text: var(--brand-2);/* texto destacado y links */
+  --accent-soft: #FFE8DC;
+  --second-ink: #FFFFFF;        /* letra sobre azul */
+  --focus: var(--brand-2);
 
   /* Códigos visuales: siempre color + forma + palabra */
   --c-entrega: #C2461B;
@@ -46,15 +53,15 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #151B1A; --surface: #1D2523; --sunken: #121716; --ink: #E6ECEA; --muted: #A2B0AB;
-    --line: #33403C; --accent: #5BC2A6; --accent-ink: #0D1A16; --accent-soft: #1F3A33; --focus: #F2B65A;
+    --bg: #111111; --surface: #1B1B1B; --sunken: #0A0A0A; --ink: #F5F5F5; --muted: #BDBDBD;
+    --line: #353535; --accent: var(--brand); --accent-ink: #000000; --accent-text: var(--brand); --accent-soft: #3A2215; --focus: var(--brand);
     --c-entrega: #F0875C; --c-evaluacion: #EE7AA6; --c-correccion: #A994F2; --c-teorica: #73AEF0; --c-taller: #7CCB85; --c-aviso: #E3B84E;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #151B1A; --surface: #1D2523; --sunken: #121716; --ink: #E6ECEA; --muted: #A2B0AB;
-  --line: #33403C; --accent: #5BC2A6; --accent-ink: #0D1A16; --accent-soft: #1F3A33; --focus: #F2B65A;
+  --bg: #111111; --surface: #1B1B1B; --sunken: #0A0A0A; --ink: #F5F5F5; --muted: #BDBDBD;
+  --line: #353535; --accent: var(--brand); --accent-ink: #000000; --accent-text: var(--brand); --accent-soft: #3A2215; --focus: var(--brand);
   --c-entrega: #F0875C; --c-evaluacion: #EE7AA6; --c-correccion: #A994F2; --c-teorica: #73AEF0; --c-taller: #7CCB85; --c-aviso: #E3B84E;
   color-scheme: dark;
 }
@@ -72,9 +79,9 @@ h1 { font-size: var(--step-3); }
 h2 { font-size: var(--step-2); }
 h3 { font-size: var(--step-1); }
 p { margin: 0; max-width: 65ch; }
-a { color: var(--accent); }
+a { color: var(--accent-text); }
 :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
-.eyebrow { font-family: var(--f-display); font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); font-weight: 600; }
+.eyebrow { font-family: var(--f-display); font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent-text); font-weight: 600; }
 .muted { color: var(--muted); }
 .small { font-size: var(--step--1); }
 
@@ -128,6 +135,7 @@ main > section > .note { margin-top: calc(var(--space-sub) - var(--space-block))
   padding: 0.55rem 1rem; cursor: pointer; min-height: 40px;
 }
 a.btn { text-decoration: none; display: inline-flex; align-items: center; }
+.btn.second { background: var(--brand-2); color: var(--second-ink); border-color: var(--brand-2); }
 .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
 .btn:disabled { opacity: 0.45; cursor: default; }
 .row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
@@ -141,25 +149,25 @@ textarea { resize: vertical; min-height: 7rem; line-height: 1.5; }
 /* ---------- Inicio ---------- */
 .hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
 .hero h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 700; }
-.hero h1 em { font-style: normal; color: var(--accent); }
+.hero h1 em { font-style: normal; color: var(--accent-text); }
 .hero .lead { gap: 1rem; }
 .hero .lead p { font-size: var(--step-1); }
 
 .carousel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad-card); display: flex; flex-direction: column; gap: 1.25rem; }
 .quote { font-family: var(--f-display); font-size: clamp(1.3rem, 3vw, 1.7rem); font-weight: 500; line-height: 1.3; text-wrap: balance; }
-.quote::before { content: "“"; color: var(--accent); }
-.quote::after { content: "”"; color: var(--accent); }
+.quote::before { content: "“"; color: var(--accent-text); }
+.quote::after { content: "”"; color: var(--accent-text); }
 .behind { display: flex; flex-direction: column; gap: 0.4rem; border-top: 1px solid var(--line); padding-top: 0.9rem; }
 .behind b { font-family: var(--f-display); font-weight: 600; }
 .car-nav { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
 .dots { display: flex; gap: 0.4rem; }
-.dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent); background: transparent; padding: 0; cursor: pointer; }
-.dot[aria-current="true"] { background: var(--accent); }
+.dot { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--ink); background: transparent; padding: 0; cursor: pointer; }
+.dot[aria-current="true"] { background: var(--accent); border-color: var(--accent); }
 
 .lines { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: var(--space-grid); }
 .line-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: var(--pad-card); display: flex; flex-direction: column; gap: 0.75rem; cursor: pointer; text-align: left; font: inherit; color: inherit; }
 .line-card:hover { border-color: var(--accent); }
-.line-card .num { font-family: var(--f-display); font-weight: 700; color: var(--accent); font-size: var(--step--1); letter-spacing: 0.08em; }
+.line-card .num { font-family: var(--f-display); font-weight: 700; color: var(--accent-text); font-size: var(--step--1); letter-spacing: 0.08em; }
 .line-card h3 { font-size: var(--step-1); }
 .line-card ul { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: var(--step--1); display: flex; flex-direction: column; gap: 0.3rem; }
 
@@ -168,7 +176,7 @@ textarea { resize: vertical; min-height: 7rem; line-height: 1.5; }
 .myth button { font: inherit; color: inherit; background: none; border: 0; text-align: left; padding: 1.25rem 1.4rem; cursor: pointer; display: flex; flex-direction: column; gap: 0.35rem; }
 .myth .tag { font-family: var(--f-display); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
 .myth .tag.m { color: var(--c-entrega); }
-.myth .tag.r { color: var(--accent); }
+.myth .tag.r { color: var(--accent-text); }
 .myth .claim { font-family: var(--f-display); font-weight: 500; font-size: 1.05rem; }
 .myth .reveal { padding: 0 1.4rem 1.25rem; display: flex; flex-direction: column; gap: 0.35rem; border-top: 1px dashed var(--line); padding-top: 0.8rem; }
 .myth .hint { color: var(--muted); font-size: var(--step--1); }
@@ -231,7 +239,7 @@ textarea { resize: vertical; min-height: 7rem; line-height: 1.5; }
 .day { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 0.5rem; min-height: 8rem; display: flex; flex-direction: column; gap: 0.4rem; min-width: 0; }
 .day.today { border-color: var(--accent); box-shadow: inset 0 3px 0 var(--accent); }
 .day h4 { font-size: var(--step--1); font-weight: 600; display: flex; justify-content: space-between; color: var(--muted); }
-.day.today h4 { color: var(--accent); }
+.day.today h4 { color: var(--accent-text); }
 .ev { font-size: 0.8rem; line-height: 1.3; border-radius: 6px; padding: 0.35rem 0.4rem; background: var(--surface); border-left: 4px solid currentColor; display: flex; flex-direction: column; gap: 0.1rem; position: relative; }
 .ev b { color: var(--ink); font-weight: 700; overflow-wrap: anywhere; }
 .ev .meta { display: flex; align-items: center; gap: 0.3rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; }
@@ -264,11 +272,11 @@ textarea { resize: vertical; min-height: 7rem; line-height: 1.5; }
 .tp-cell { display: flex; flex-direction: column; gap: 0.2rem; border-top: 2px solid var(--line); padding-top: 0.5rem; min-width: 0; overflow-wrap: anywhere; }
 .tp-cell .lbl { font-family: var(--f-display); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
 .tp-cell.key { border-top-color: var(--accent); }
-.tp-cell.key .lbl { color: var(--accent); }
+.tp-cell.key .lbl { color: var(--accent-text); }
 .tp-cell.date { border-top-color: var(--c-entrega); }
 .tp-cell.date .lbl { color: var(--c-entrega); }
 .tp-cell ul, .tp-cell ol { margin: 0; padding-left: 1.2rem; }
-.arrow-down { font-family: var(--f-display); font-weight: 600; color: var(--accent); text-align: center; }
+.arrow-down { font-family: var(--f-display); font-weight: 600; color: var(--accent-text); text-align: center; }
 .trans-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 1rem; }
 
 .map { display: flex; gap: 0; overflow-x: auto; padding-bottom: 0.5rem; }
@@ -304,7 +312,7 @@ textarea { resize: vertical; min-height: 7rem; line-height: 1.5; }
 
 /* ---------- Contacto (pie) ---------- */
 .contact { max-width: 72rem; margin: 0 auto; padding-inline: 16px; padding-block: 0 var(--space-section); scroll-margin-top: calc(var(--header-h, 9rem) + 16px); }
-.contact > .panel { border-top: 4px solid var(--accent); }
+.contact > .panel { border-top: 4px solid var(--brand-2); }
 .checks { display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; border: 0; margin: 0; padding: 0; }
 .checks legend { font-weight: 700; font-size: var(--step--1); padding: 0; margin-bottom: 0.3rem; }
 .checks label { display: inline-flex; align-items: center; gap: 0.4rem; font-size: var(--step-0); }
@@ -344,7 +352,7 @@ html.calm *, html.calm *::before, html.calm *::after { transition: none !importa
           <rect x="2" y="2" width="28" height="28" rx="7" fill="var(--accent)"/>
           <path d="M9 11h14M9 16h9M9 21h5" stroke="var(--accent-ink)" stroke-width="2.6" stroke-linecap="round"/>
         </svg>
-        <div><b>Cursada Clara</b><br><span>TDAH y universidad</span></div>
+        <div><b>unpovdiferente</b><br><span>TDAH y universidad</span></div>
       </div>
       <div class="prefs" role="group" aria-label="Ajustes de lectura">
         <button class="chip-btn" id="pref-size" type="button" aria-label="Cambiar tamaño de texto">Texto: normal</button>
@@ -373,7 +381,7 @@ html.calm *, html.calm *::before, html.calm *::after { transition: none !importa
         <p>Herramientas cortas y concretas para organizar entregas, entender consignas y sostener el estudio. Pensadas con estudiantes con TDAH y útiles para toda la cursada.</p>
         <div class="row" style="margin-top:0.5rem">
           <button class="btn" type="button" data-go="herramientas" data-sub="primer">Necesito empezar algo</button>
-          <button class="btn ghost" type="button" data-go="consignas">Tengo una consigna confusa</button>
+          <button class="btn second" type="button" data-go="consignas">Tengo una consigna confusa</button>
         </div>
       </div>
 
@@ -442,7 +450,7 @@ html.calm *, html.calm *::before, html.calm *::after { transition: none !importa
     <div class="note">
       <p>Este sitio no diagnostica. Si te sentís identificado o identificada, podés consultar con profesionales de salud mental o con las áreas pedagógicas y de bienestar de tu universidad.</p>
       <div class="row">
-        <a class="btn" href="#contacto" data-scroll="contacto">Escribirle a un psicopedagogo</a>
+        <a class="btn second" href="#contacto" data-scroll="contacto">Escribirle a un psicopedagogo</a>
         <a class="btn ghost" href="#apoyo" data-go="apoyo">Ver áreas y contactos</a>
       </div>
     </div>
@@ -682,7 +690,7 @@ Entrega</textarea></label>
     <div class="grid-2" id="areas"></div>
     <div class="note">
       <p><b>¿No sabés a cuál ir?</b> Escribí a cualquiera: si no les corresponde, te derivan. Podés armar el mensaje acá abajo y llevarlo escrito.</p>
-      <div class="row"><a class="btn" href="#contacto" data-scroll="contacto">Armar un mensaje</a></div>
+      <div class="row"><a class="btn second" href="#contacto" data-scroll="contacto">Armar un mensaje</a></div>
     </div>
   </section>
 </main>
@@ -724,7 +732,7 @@ Entrega</textarea></label>
         <h3>Así queda tu mensaje</h3>
         <pre class="preview" id="ct-preview" aria-live="polite"></pre>
         <div class="row">
-          <a class="btn" id="ct-mail" href="#">Abrir en mi correo</a>
+          <a class="btn second" id="ct-mail" href="#">Abrir en mi correo</a>
           <button class="btn ghost" type="button" id="ct-copy">Copiar mensaje</button>
           <button class="btn ghost" type="button" id="ct-clear">Borrar borrador</button>
         </div>
@@ -738,7 +746,7 @@ Entrega</textarea></label>
 <section class="team" id="equipo" aria-labelledby="eq-title">
   <div class="lead">
     <span class="eyebrow">Equipo</span>
-    <h2 id="eq-title">Quiénes hacemos Cursada Clara</h2>
+    <h2 id="eq-title">Quiénes hacemos unpovdiferente</h2>
   </div>
   <ul class="team-list">
     <li class="person"><span class="initials" aria-hidden="true">DW</span><div><b>Delfina Wetzel</b><span>Directora del proyecto</span></div></li>
@@ -749,7 +757,7 @@ Entrega</textarea></label>
 </section>
 
 <footer>
-  <p>Cursada Clara es un prototipo de un proyecto de Diseño Gráfico sobre TDAH en la universidad. Los datos que cargues quedan solo en tu navegador.</p>
+  <p>unpovdiferente es un prototipo de un proyecto de Diseño Gráfico sobre TDAH en la universidad. Los datos que cargues quedan solo en tu navegador.</p>
   <p class="copyright"><small>© 2026 Alejandro Gabriel Florido. Todos los derechos reservados.</small></p>
 </footer>
 
